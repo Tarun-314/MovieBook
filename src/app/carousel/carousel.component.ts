@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+declare var $: any;
 
 @Component({
   selector: 'app-carousel',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './carousel.component.css'
 })
 export class CarouselComponent {
-
+  
+  ngAfterViewInit(): void {
+    $('#carouselExampleIndicators').carousel({
+      interval: 3000
+    });
+  }
 }
