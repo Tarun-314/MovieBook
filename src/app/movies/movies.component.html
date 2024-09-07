@@ -13,21 +13,21 @@
         <div class="text-center mx-3 alert alert-danger w-100" role="alert" *ngIf="filterMovies().length==0">
           <h6 class="text-danger my-0">No records found..!</h6>
         </div>
-        <a *ngFor="let mov of filterMovies() | slice:0:8" routerLink="/mov-details/{{mov.MovieID}}" class="col-md-3 movie-item">
-          <div class="card">
+        <a *ngFor="let mov of filterMovies() | slice:0:8" routerLink="/mov-details/{{mov.MovieID}}" class="col-md-3 col-12 col-sm-6 mb-4 movie-item">
+          <div class="card glassmorphism-card">
             <img src="{{mov.Image}}" class="card-img avail-img" alt="{{mov.Title}}">
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title text-dark mb-0">{{mov.Title | truncate}}</h5>
-                <span class="text-muted small">{{mov.ReleaseDate | date:'dd MMM yyyy' }}</span>
+                <h5 class="card-title text-info mb-0" title="{{mov.Title}}">{{mov.Title | truncate}}</h5>
+                <span class=" small">{{mov.ReleaseDate | date:'dd MMM yyyy' }}</span>
               </div>
-              <p class="card-text text-secondary mb-2 small">
+              <p class="card-text mb-2 small">
                 {{mov.Genre}}
               </p>
-              <div class="d-flex align-items-center small justify-content-between text-muted">
+              <div class="d-flex align-items-center small justify-content-between ">
                 <div>
                   <span class="badge badge-warning mr-1">{{mov.Rating}}</span>
-                  <small class="text-muted mr-3">IMDb Ratings</small>
+                  <small class=" mr-3">IMDb Ratings</small>
                 </div>
                 <div>
                   <i class="fa fa-heart text-danger"></i> {{mov.Likes | likes}}
