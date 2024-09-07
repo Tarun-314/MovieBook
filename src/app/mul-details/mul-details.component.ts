@@ -49,14 +49,7 @@ export class MulDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.router.navigate(['/error']);
       }
     }); 
-    
-    this.navigationSubscription = this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-        if (event.navigationTrigger === 'popstate' && event.restoredState) {
-          this.router.navigate([this.router.url]);
-        }
-      }
-    });
+   
   }
 
   ngAfterViewInit() {

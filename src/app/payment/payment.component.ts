@@ -1,8 +1,9 @@
 import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
-import {  Router } from '@angular/router';
+import {  NavigationStart, Router } from '@angular/router';
 import { DataService } from '../services/data-services';
 import { NgForm } from '@angular/forms';
 import QRCode from 'qrcode';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-payment',
@@ -16,6 +17,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   discountedAmount: number = 0;
   upiUrl = 'upi://pay?pa=7093794029@ybl&pn=Vamsi&cu=INR&am=0';
   cannotApply:boolean = false;
+  routerSubscription: Subscription;
 
   constructor(private renderer: Renderer2, private router: Router, private dataService: DataService) {}
 
@@ -25,10 +27,19 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.retrieveStateData();
     this.setupEventListeners();
     this.generateQRCode();
+    this.routerSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        if (event.navigationTrigger === 'popstate') {
+          this.router.navigate(['/home']);
+        }
+      }
+    });
   }
 
   ngOnDestroy(): void {
     this.eventListeners.forEach(unlisten => unlisten());
+    if(this.routerSubscription)
+      this.routerSubscription.unsubscribe();
   }
 
   onSubmit(couponForm: NgForm) {
