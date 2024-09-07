@@ -52,7 +52,7 @@
 
           <ng-template #elseblock>
             <div class="row">
-              <div *ngFor="let rev of reviews " class="col-lg-4 col-md-6 col-sm-12 mb-3">
+              <div *ngFor="let rev of reviews |slice:0:6" class="col-lg-4 col-md-6 col-sm-12 mb-3">
                 <div class="card h-100 multiplex-card border-primary no-hover-effect shadow">
                   <div class="card-body">
                     <div class="row d-flex justify-content-between align-items-center mb-2">
