@@ -1,0 +1,174 @@
+<div class="container my-5">
+    <div class="card shadow-lg border-light no-hover-effect">
+      <div class="card-body">
+        <div class="row">
+          <!-- Image Section -->
+          <div class="col-md-4 d-flex align-items-center justify-content-center mb-4 mb-md-0">
+            <img src="https://www.svgrepo.com/show/382109/male-avatar-boy-face-man-user-7.svg" alt="User Image" class="rounded-circle border shadow img-fluid" style="width: 150px; height: 150px;">
+          </div>
+          <!-- Form Section -->
+          <div class="col-md-8">
+            <h4 class="text-primary my-4 text-center text-md-left">Edit User Profile</h4>
+            <form #profileUpdate="ngForm" (ngSubmit)="UpdateUser()">
+              <div class="form-row">
+                <div class="form-group col-md-5">
+                  <label for="name" class="font-weight-bold text-secondary">Name</label>
+                  <input type="text" size="10" class="form-control form-control-sm" id="name" name="name" placeholder="Enter your name" [(ngModel)]="user.fullName" required
+                  pattern="^[a-zA-Z ]{3,15}$"
+                  minlength="3"
+                  #name="ngModel"
+                  [ngClass]="{ 'is-invalid': name.dirty && name.invalid && name.touched }"
+                />
+                <div *ngIf="name.dirty && name.invalid && name.touched" class="invalid-feedback">
+                  <div *ngIf="name.errors?.required">Name is required</div>
+                  <div *ngIf="name.errors?.minlength">Name must be at least 3 characters</div>
+                  <div *ngIf="name.errors?.pattern">Name should only contain alphabets and spaces</div>
+                </div>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-5">
+                  <label for="email" class="font-weight-bold text-secondary">Email</label>
+                  <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Enter your email" [(ngModel)]="user.email" required
+                  pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" 
+                  #email="ngModel"
+                  [ngClass]="{ 'is-invalid': email.dirty && email.invalid && email.touched }"
+                />
+                <div *ngIf="email.dirty && email.invalid && email.touched" class="invalid-feedback">
+                  <div *ngIf="email.errors?.required">Email is required</div>
+                  <div *ngIf="email.errors?.pattern">Invalid email format</div>
+                </div>  
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-5">
+                  <label for="password" class="font-weight-bold text-secondary">Password</label>
+                  <input type="password" class="form-control form-control-sm" id="password" name="password" placeholder="Enter your new password" [(ngModel)]="user.passwordHash"  required
+                  #password="ngModel"
+                  minlength="8"
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
+                  [ngClass]="{ 'is-invalid': password.invalid && password.touched, 'is-valid': password.valid}"
+                />
+                <div *ngIf="password.invalid && password.touched" class="invalid-feedback">
+                  <div *ngIf="password.errors?.['minlength']">Password must be at least 8 characters</div>
+                  <div *ngIf="password.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, and one digit</div>
+                </div>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-5">
+                  <label for="security-question" class="font-weight-bold text-secondary">Security Question</label>
+                  <select class="form-control form-control-sm" id="security-question" name="security-question" [(ngModel)]="user.securityQuestion"  required
+                  #securityQuestionCtrl="ngModel"
+                  [ngClass]="{ 'is-invalid': securityQuestionCtrl.invalid && securityQuestionCtrl.touched }"
+                >
+                    <option value="" disabled>Select a security question</option>
+                    <option value="first_pet">What is the name of your first pet?</option>
+                    <option value="first_car">What was the make and model of your first car?</option>
+                    <option value="mothers_maiden_name">What is your mother's maiden name?</option>
+                    <option value="elementary_school">What was the name of your elementary school?</option>
+                    <option value="first_employer">What was the name of your first employer?</option>
+                    <option value="favorite_book">What is your favorite book?</option>
+                    <option value="childhood_nickname">What was your childhood nickname?</option>
+                    <option value="birth_city">What is the name of the city where you were born?</option>
+                    <option value="dream_job">What was your dream job as a child?</option>
+                    <option value="favorite_movie">What is your favorite movie?</option>
+                  </select>
+                  <div *ngIf="securityQuestionCtrl.dirty && securityQuestionCtrl.invalid && securityQuestionCtrl.touched" class="invalid-feedback">
+                    <div *ngIf="securityQuestionCtrl.errors?.required">Please select a security question</div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-5">
+                  <label for="security-answer" class="font-weight-bold text-secondary">Security Answer</label>
+                  <input type="text" class="form-control form-control-sm" id="security-answer" name="security-answer" placeholder="Enter your answer" [(ngModel)]="user.securityAnswer" required
+                  minlength="3"
+                  #securityAnswerCtrl="ngModel"
+                  [ngClass]="{ 'is-invalid': securityAnswerCtrl.invalid && securityAnswerCtrl.touched }"
+                  placeholder="Security Answer"
+                />
+                <div *ngIf="securityAnswerCtrl.dirty && securityAnswerCtrl.invalid && securityAnswerCtrl.touched" class="invalid-feedback">
+                  <div *ngIf="securityAnswerCtrl.errors?.required">Security answer is required</div>
+                  <div *ngIf="securityAnswerCtrl.errors?.minlength">Answer must be at least 3 characters</div>
+                </div>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-5">
+                  <label for="mobile" class="font-weight-bold text-secondary">Phone Number</label>
+                  <input type="text" class="form-control form-control-sm" id="mobile" name="mobile" placeholder="Enter your mobile no" [(ngModel)]="user.phoneNumber" required
+                  pattern="^[0-9]{10}$"
+                  #mobile="ngModel"
+                  [ngClass]="{ 'is-invalid': mobile.dirty && mobile.invalid && mobile.touched }"
+                />
+                <div *ngIf="mobile.dirty && mobile.invalid && mobile.touched" class="invalid-feedback">
+                  <div *ngIf="mobile.errors?.required">Mobile number is required</div>
+                  <div *ngIf="mobile.errors?.pattern">10 digits are required in mobile number</div>
+                </div>
+                </div>
+              </div>
+              <div class="text-center my-2">
+                <button type="reset" class="btn btn-outline-danger btn-sm mr-1" >Reset</button>
+                <button type="submit" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#infoModal" [disabled]="profileUpdate.invalid">Save Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <section class="container">
+    <div class="card my-5 shadow-lg border-light no-hover-effect">
+      <div class="card-body mx-4">
+      <div class="d-flex align-items-center justify-content-center mt-3 mb-0">
+        <h4 class="text-primary ">Purchase History</h4>
+      </div>
+        <div class="table-responsive mx-3">
+          <table id="Table5" class="table table-md  table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Movie</th>
+                <th>Multiplex</th>
+                <th>Booking Date</th>
+                <th>Show Time</th>
+                <th>Seat(s)</th>
+                <th>Amount</th>
+                <th>Transaction ID</th>
+                <th>Payment Mode</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let p of user_purchase_history">
+                <td>{{p.movieName}}</td>
+                <td>{{p.theatreName}}</td>
+                <td>{{p.bookingDate | date: "dd MMM yyyy"}}</td>
+                <td>{{p.showTime}}</td>
+                <td>{{p.seats}}</td>
+                <td>{{p.totalPrice}}</td>
+                <td class="small">{{p.transactionID}}</td>
+                <td>{{p.paymentMethod}}</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Information</h5>
+                <a href="#" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body pb-0 px-2 text-center">
+                <p class="text-muted">Hello {{user.fullName}}..! <br />Changes have been saved.</p>
+            </div>
+            
+        </div>
+    </div>
+  </div>

@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center sticky">
+  <div class="container">
+    <div class="navbar-nav my-3 text-center w-100">
+      <div class="row flex-row">
+        <div class="col-auto">
+          <a class="nav-link rounded-pill m-1" routerLink="multiplex-list" routerLinkActive="active">Multiplex List</a>
+        </div>
+        <div class="col-auto">
+          <a class="nav-link rounded-pill m-1" routerLink="movie-list" routerLinkActive="active">Movie List</a>
+        </div>
+        <div class="col-auto">
+          <a class="nav-link rounded-pill m-1" routerLink="linked-movies" routerLinkActive="active">Linked Movies</a>
+        </div>
+        <div class="col-auto">
+          <a class="nav-link rounded-pill m-1" routerLink="users" routerLinkActive="active">Users</a>
+        </div>
+        <div class="col-auto">
+          <a class="nav-link rounded-pill m-1" routerLink="user-bookings" routerLinkActive="active">User Bookings</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

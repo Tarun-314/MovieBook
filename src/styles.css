@@ -1,0 +1,413 @@
+  
+  body {
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  .movie-poster-img{
+    width: 100%;
+    height: 450px;
+  }
+  .carousel-img
+  {
+    width: 100%;
+    height: auto;
+  }
+  .avail-img {
+    width: 100%;
+    height: 350px;
+  }
+  .mul-img {
+    width: 100%;
+    height: 200px;
+  }
+  .movie-card-img {
+    width: 100%;
+    height: 270px;
+    border-radius: 20px;
+}
+  .movie-details {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .movie-details h2 {
+    margin-top: 0;
+    color: #343a40; /* Dark gray color for contrast */
+  }
+  .section-separator {
+    height: 2px;
+    background: linear-gradient(to right, #ff6f61, #d43f7c);
+    margin: 40px 0;
+  }
+
+  .multiplex-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important; /* Smooth transition on hover */
+    border: none !important;
+  }
+
+  .multiplex-card:hover {
+      transform: scale(1.02) !important;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1) !important; 
+  }
+
+  .movie-list, .multiplex-list {
+    margin-top: 20px;
+  }
+  .movie-list h2, .multiplex-list h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(to right, #ff6f61, #d43f7c); /* Gradient color */
+    /*-webkit-background-clip: text;*/
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+  .movie-item, .multiplex-item {
+    margin-bottom: 20px;
+  }
+
+  .card {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  }
+
+  @media (max-width: 767.98px) { /* For smaller devices */
+    .card-img-left{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+  }
+
+  .card-img-left{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+  .card-img {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  .footer {
+    background: #343a40;
+    color: white;
+    padding: 20px 0;
+  }
+  .footer a {
+    color: white;
+    text-decoration: none;
+  }
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  .footer .social-icons a {
+    color: white;
+    margin: 0 10px;
+  }
+  .footer .social-icons a:hover {
+    color: #f8f9fa;
+  }
+  .navbar {
+    padding: 0.38rem 1.2rem;
+  }
+  .navbar .navbar-brand {
+    font-size: 1.8em;
+  }
+  .dropdown-menu {
+    background-color: #f8f9fa;
+    min-width: 135px;
+  }
+  .dropdown-item:hover {
+    background-color: #e9ecef;
+  }
+  .dropdown-toggle::after {
+    display: none;
+  }
+  .dropdown-menu .text-primary {
+    color: #007bff;
+  }
+  .dropdown-menu .text-primary:hover {
+    background-color: #e9ecef;
+  }
+  .dropdown-menu .text-danger {
+    color: #dc3545;
+  }
+  .dropdown-menu .text-danger:hover {
+    background-color: #e9ecef;
+  }
+  .available-movies {
+    background: url('https://img.freepik.com/premium-vector/hand-drawn-cartoon-cinema-background_98292-24251.jpg?semt=ais_hybrid') no-repeat center center;
+    background-size: cover;
+    padding: 40px 0;
+    color: #fff;
+    position: relative;
+  }
+  .available-movies::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+  .available-movies .container {
+    position: relative;
+    z-index: 2;
+  }
+  .carousel-item img {
+    filter: brightness(30%); 
+  }
+  .no-hover-effect {
+    transition: none; /* Disable transitions for this card */
+  }
+  .no-hover-effect:hover {
+    transform: none; 
+  }
+
+  .rounded-circle {
+    width: 30px;
+    height: 30px;
+  }
+  .rating .fa-star {
+    color: #ddd; 
+  }
+  .rating .fa-star.checked {
+    color: #ffcc00;
+  }
+  .card-img {
+    filter: brightness(70%); 
+    transition: transform 0.3s ease, filter 0.4s ease-out !important; 
+  }
+  .card-img:hover {
+    filter: brightness(100%); 
+  }
+
+  .modal-header {
+    background: linear-gradient(45deg, #007bff, #6f42c1);
+    color: white;
+  }
+
+  .modal-body p {
+    font-size: 1.1rem;
+  }
+
+  .modal-body .fa {
+    color: #ffc107;
+  }
+
+  .screen-bar {
+    background-color: #444;
+    color: white;
+    width: 250px;
+    margin-bottom: 10px;
+}
+
+.screen-label {
+    font-weight: bold;
+    letter-spacing: 6px;
+    font-size: 12px;
+}
+
+.seat-grid {
+    display: grid;
+    grid-template-columns: repeat(11, auto);
+    gap: 6px;
+    justify-content: center;
+}
+
+.seat-row {
+  display: contents;
+}
+
+.seat-label {
+  text-align: center;
+  font-weight: bold;
+  font-size: 13px;
+  margin-right: 2px;
+  color: #000;
+  height: 100%; /* Ensure the height matches the row */
+  display: flex;
+}
+
+.seat {
+  width: 16px;
+  height: 16px;
+  background-color: #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.seat.selected {
+    background-color: rgb(253, 124, 124) !important;
+    color: white;
+}
+
+.seat-row[data-price="100"] .seat {
+    background-color: #c5cfdd;
+}
+
+.seat-row[data-price="150"] .seat {
+    background-color: #ecd86b;
+}
+
+.seat-row[data-price="200"] .seat {
+    background-color: #95cddf;
+}
+
+.seat-details {
+    margin-top: 20px;
+}
+
+.seat-details p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.mytext
+{
+  font-size: 10px !important;
+}
+
+.badge-outline-info {
+  color: #17a2b8;
+  background-color: transparent;
+  border: 1px solid #17a2b8;
+}
+
+.badge-outline-warning {
+  color: #ffc107;
+  background-color: transparent;
+  border: 1px solid #ffc107;
+}
+
+.golden-gradient-text {
+background: linear-gradient(90deg, #f1c40f, #f39c12, #e67e22) !important;
+background-clip: text !important;
+-webkit-background-clip: text !important;
+color: transparent !important;
+}
+
+.my-text2 {
+color: #333; 
+font-weight: 500; 
+}
+
+.card-text
+{
+  font-size: 11px;
+}
+
+.my-text3
+{
+  font-size: 13px !important;
+}
+
+.my-text4
+{
+  font-size: 11px !important;
+}
+
+a{
+text-decoration: none !important;
+}
+
+.seat.occupied {
+background-color: #3d3c3c !important; 
+color: #fff; 
+cursor: not-allowed; 
+}
+
+.table {
+  border-radius: 15px !important; 
+  overflow: hidden; 
+}
+.table th, .table td {
+  vertical-align: middle;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+padding: 0.1rem 0.3rem !important; /* Adjust padding for smaller buttons */
+border-radius: 0.25rem !important; /* Make buttons rounded */
+border: 1px solid #007bff !important; /* Bootstrap primary blue for border */
+font-size: 0.9rem !important; /* Adjust font size */
+margin: 5px;
+color: #007bff !important; /* Text color matching the border */
+background-color: transparent !important; /* Transparent background */
+overflow: hidden !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+border-color: #0056b3 !important; /* Darker blue for border on hover */
+color: #0056b3 !important; /* Darker blue for text on hover */
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+border-color: #0056b3 !important; /* Darker blue for active button border */
+color: #0056b3 !important; /* Darker blue for active button text */
+}
+
+/* Style the DataTables search input */
+.dataTables_wrapper .dataTables_filter input {
+padding: 0.25rem 0.5rem !important; /* Adjust padding for smaller input */
+font-size: 0.875rem !important; /* Smaller font size */
+border-radius: 0.25rem !important; /* Rounded corners */
+border: 1px solid #ced4da !important; /* Light border color */
+width: auto; /* Adjust width as needed */
+margin-bottom: 3px;
+}
+
+.dataTables_wrapper .dataTables_filter label {
+font-size: 0.875rem !important; /* Smaller font size for the label */
+}
+
+td{
+  font-size: 14px !important;
+}
+
+/* Default input styles */
+input.ng-dirty.ng-invalid,
+select.ng-dirty.ng-invalid,
+textarea.ng-dirty.ng-invalid {
+  border:1px dashed #dc3545 !important; /* Red border for invalid inputs */
+}
+
+input.ng-dirty.ng-valid,
+select.ng-dirty.ng-valid,
+textarea.ng-dirty.ng-valid {
+  border: 1px dashed #28a745 !important; /* Green border for valid inputs */
+}
+
+/* Optional: Add some transition for smooth border color change */
+input,
+select,
+textarea {
+  transition: border-color 0.3s ease-in-out !important;
+}
+
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8); /* Optional: Add a semi-transparent background */
+  z-index: 1000; /* Ensure it appears above other content */
+}

@@ -1,0 +1,45 @@
+  <!-- Booking Table -->
+  <div class="container my-5">
+    <div class="card shadow-lg border-light no-hover-effect">
+      <div class="card-body mx-2">
+        <div class="d-flex align-items-center justify-content-center">
+          <h4 class="text-primary my-4 my-md-2 mr-3 text-center"><i class="fa fa-ticket" aria-hidden="true"></i> User Bookings</h4>
+        </div>
+        <div class="table-responsive">
+          <table id="Table5" class="table table-md table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>User ID</th>
+                <th>Movie</th>
+                <th>Multiplex</th>
+                <th>Booking Date</th>
+                <th>Show Date</th>
+                <th>Show Time</th>
+                <th>Seat(s)</th>
+                <th>Amount</th>
+                <th>Booking ID</th>
+                <th>Payment Mode</th>
+              </tr>
+            </thead>
+            <tbody>
+            
+              <tr *ngFor="let p of BookingHistory">
+                <td class="small">{{p.userID}}</td>
+                <td>{{p.movieName}}</td>
+                <td>{{p.theatreName}}</td>
+                <td>{{p.bookingDate | date: "dd MMM yyyy"}}</td>
+                <td>{{p.showDate | date: "dd MMM yyyy"}}</td>
+                <td>{{p.showTime}}</td>
+                <td>{{p.seats}}</td>
+                <td>{{p.totalPrice}}</td>
+                <td class="small">{{p.transactionID}}</td>
+                <td>{{p.paymentMethod}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  

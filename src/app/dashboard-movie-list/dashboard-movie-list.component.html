@@ -1,0 +1,189 @@
+  <!-- Movie List -->
+  <!-- Modal Structure -->
+  <div class="modal fade" id="manageMovieModal" tabindex="-1" role="dialog" aria-labelledby="manageMovieModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="manageMovieModalLabel">Manage Movie</h5>
+          <a href="#" type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="movieForm.reset()">
+            <span aria-hidden="true">&times;</span>
+          </a>
+        </div>
+        <div class="modal-body">
+          <form #movieForm="ngForm">
+            <div class="form-row">
+              <div class="form-group px-sm-4 my-1 col-md-6">
+                <label for="title" class="font-weight-bold text-secondary">Title</label>
+                <input type="text" class="form-control form-control-sm text-capitalize" id="title" name="title" [(ngModel)]="Mmovie.title"
+                       required minlength="1" placeholder="Enter movie title">
+                <div *ngIf="movieForm.controls.title?.touched || movieForm.controls.title?.dirty" class="text-danger mt-2">
+                  <div *ngIf="movieForm.controls.title?.errors?.required" class="small">Title is required.</div>
+                  <div *ngIf="movieForm.controls.title?.errors?.minlength" class="small">Title must be at least 1 characters long.</div>
+                </div>
+              </div>
+              <div class="form-group px-sm-4 my-1 col-md-6">
+                <label for="genre" class="font-weight-bold text-secondary">Genre</label>
+                <input type="text" class="form-control form-control-sm text-capitalize" id="genre" name="genre" [(ngModel)]="Mmovie.genre"
+                       required placeholder="Enter genre">
+                <div *ngIf="movieForm.controls.genre?.touched || movieForm.controls.genre?.dirty" class="text-danger mt-2">
+                  <div *ngIf="movieForm.controls.genre?.errors?.required" class="small">Genre is required.</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group px-sm-4 my-1 col-md-6">
+                <label for="duration" class="font-weight-bold text-secondary">Duration (Mins)</label>
+                <input type="number" class="form-control form-control-sm" id="duration" name="duration" [(ngModel)]="Mmovie.duration"
+                       required min="1" placeholder="Enter duration">
+                <div *ngIf="movieForm.controls.duration?.touched || movieForm.controls.duration?.dirty" class="text-danger mt-2">
+                  <div *ngIf="movieForm.controls.duration?.errors?.required" class="small">Duration is required.</div>
+                  <div *ngIf="movieForm.controls.duration?.errors?.min" class="small">Duration must be at least 1 minute.</div>
+                </div>
+              </div>
+              <div class="form-group px-sm-4 my-1 col-md-6">
+                <label for="release-date" class="font-weight-bold text-secondary">Release Date</label>
+                <input type="date" class="form-control form-control-sm" id="release-date" name="release-date" [(ngModel)]="Mmovie.releaseDate"
+                       required placeholder="Enter release date">
+                <div *ngIf="movieForm.controls['release-date']?.touched || movieForm.controls['release-date']?.dirty" class="text-danger mt-2">
+                  <div *ngIf="movieForm.controls['release-date']?.errors?.required" class="small">Release date is required.</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group px-sm-4 my-1 col-md-6">
+                <label for="rating" class="font-weight-bold text-secondary">Rating</label>
+                <input type="number" step="0.1" min="0" max="10" class="form-control form-control-sm" id="rating" name="rating" [(ngModel)]="Mmovie.rating"
+                       required placeholder="Enter rating">
+                <div *ngIf="movieForm.controls.rating?.touched || movieForm.controls.rating?.dirty" class="text-danger mt-2">
+                  <div *ngIf="movieForm.controls.rating?.errors?.required" class="small">Rating is required.</div>
+                  <div *ngIf="movieForm.controls.rating?.errors?.min" class="small">Rating must be at least 0.</div>
+                  <div *ngIf="movieForm.controls.rating?.errors?.max" class="small">Rating cannot exceed 10.</div>
+                </div>
+              </div>
+              <div class="form-group px-sm-4 my-1 col-md-6">
+                <label for="likes" class="font-weight-bold text-secondary">Likes</label>
+                <input type="number" class="form-control form-control-sm" id="likes" name="likes" [(ngModel)]="Mmovie.likes"
+                       required min="0" step="1" placeholder="Enter number of likes">
+                <div *ngIf="movieForm.controls.likes?.touched || movieForm.controls.likes?.dirty" class="text-danger mt-2">
+                  <div *ngIf="movieForm.controls.likes?.errors?.required" class="small">Number of likes is required.</div>
+                  <div *ngIf="movieForm.controls.likes?.errors?.min" class="small">Number of likes must be at least 0.</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group px-sm-4 my-1 col-md-6">
+                <label for="description" class="font-weight-bold text-secondary">Description</label>
+                <textarea class="form-control form-control-sm" id="description" name="description" [(ngModel)]="Mmovie.description"
+                          rows="1" placeholder="Enter description" required></textarea>
+                <div *ngIf="movieForm.controls.description?.touched || movieForm.controls.description?.dirty" class="text-danger mt-2">
+                  <div *ngIf="movieForm.controls.description?.errors?.required" class="small">Description is required.</div>
+                </div>
+              </div>
+              <div class="form-group px-sm-4 col-md-6">
+                <label for="casting" class="font-weight-bold text-secondary">Casting</label>
+                <input type="text" class="form-control form-control-sm text-capitalize" id="casting" name="casting" [(ngModel)]="Mmovie.casting"
+                       required placeholder="Enter casting">
+                <div *ngIf="movieForm.controls.casting?.touched || movieForm.controls.casting?.dirty" class="text-danger mt-2">
+                  <div *ngIf="movieForm.controls.casting?.errors?.required" class="small">Casting is required.</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group px-sm-4 my-1 col-md-6">
+                <label for="trailer" class="font-weight-bold text-secondary">Trailer</label>
+                <input type="text" class="form-control form-control-sm" id="trailer" name="trailer" [(ngModel)]="Mmovie.trailer"
+                       placeholder="Enter trailer URL">
+                <div *ngIf="movieForm.controls.trailer?.touched || movieForm.controls.trailer?.dirty" class="text-danger mt-2">
+                  <!-- Link to added -->
+                </div>
+              </div>
+              <div class="form-group px-sm-4 my-1 col-md-6">
+                <label for="language" class="font-weight-bold text-secondary">Language</label>
+                <input type="text" class="form-control form-control-sm text-capitalize" id="language" name="language" [(ngModel)]="Mmovie.language"
+                       required placeholder="Enter language">
+                <div *ngIf="movieForm.controls.language?.touched || movieForm.controls.language?.dirty" class="text-danger mt-2">
+                  <div *ngIf="movieForm.controls.language?.errors?.required" class="small">Language is required.</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group px-sm-4 my-1 col-md-12">
+                <label for="image" class="font-weight-bold text-secondary">Image</label>
+                <input type="text" class="form-control form-control-sm" id="image" name="image" [(ngModel)]="Mmovie.image"
+                       placeholder="Enter image URL">
+                <div *ngIf="movieForm.controls.image?.touched || movieForm.controls.image?.dirty" class="text-danger mt-2">
+                  <div *ngIf="!movieForm.controls.image?.value"  class="small">Link not entered.</div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="reset" class="btn btn-outline-warning btn-sm mr-1"> <i class="fa fa-undo"></i> </button>
+              <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal" (click)="movieForm.reset()">Cancel</button>
+              <button type="submit" class="btn btn-outline-primary btn-sm" data-dismiss="modal" [disabled]="!movieForm.form.valid" (click)="MovieButtonClick(movieForm)" >{{isMovieEmpty?'Add Movie':'Update Movie'}}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Movie table -->
+  <section class="container">
+    <div class="card my-5 shadow-lg border-light no-hover-effect">
+    <div class="card-body mx-2">
+      <div class="d-sm-flex align-items-center justify-content-center text-center my-4 my-lg-0 mt-lg-2 ">
+        <h4 class="text-primary my-2 mr-sm-3"><i class="fa fa-film"></i> Movie List</h4>
+        <button class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#manageMovieModal" (click)="UnLinkMmovie()">Add Movie</button>
+      </div>
+        <div class="table-responsive">
+          <table id="Table2" class="table table-md table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Duration</th>
+                <th>Release</th>
+                <th>Rating</th>
+                <th>Likes</th>
+                <th>Casting</th>
+                <th>Language</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let mov of movies">
+                <td>{{mov.title}}</td>
+                <td>{{mov.genre}}</td>
+                <td>{{mov.duration}} mins</td>
+                <td>{{mov.releaseDate | date:"dd MMM, yyyy"}}</td>
+                <td>{{mov.rating}}</td>
+                <td>{{mov.likes | likes}}</td>
+                <td>{{mov.casting}}</td>
+                <td>{{mov.language}}</td>
+                <td>
+                  <button class="btn btn-outline-primary btn-sm mr-1 rounded" title="Update" data-toggle="modal" data-target="#manageMovieModal" (click)="LinkMmovie(mov)">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button class="btn btn-outline-danger btn-sm rounded" title="Delete" (click)="DeleteMovie(mov.movieId)">
+                    <i class="fa fa-trash-o"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="toast-backdrop"></div>
+  <div class="toast" data-autohide="false">
+    <div class="toast-header">
+      <strong class="mr-auto text-primary">{{tableName}}</strong>
+      <!-- <small class="text-muted">5 mins ago</small> -->
+      <a class="ml-2 mb-1 close" data-dismiss="toast">&times;</a>
+    </div>
+    <div class="toast-body">
+      {{crudMessage}}
+    </div>
+  </div>

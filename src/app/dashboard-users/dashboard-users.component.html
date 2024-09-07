@@ -1,0 +1,61 @@
+  <!-- User Details Table -->
+  <div class="container my-5">
+    <div class="card shadow-lg border-light no-hover-effect">
+      <div class="card-body mx-2">
+        <div class="d-flex align-items-center justify-content-center">
+          <h4 class="text-primary my-4 my-md-2 mr-3 text-center"><i class="fa fa-users" aria-hidden="true"></i> Users</h4>
+        </div>
+        <div class="table-responsive">
+          <table id="Table4" class="table table-md table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>UserID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Role</th>
+                <th>Bookings</th>
+                <th>Registered</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+            
+              <tr *ngFor="let user of users">
+                <td class="small">{{user.userId}}</td>
+                <td>{{user.fullName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.phoneNumber}}</td>
+                <td>{{user.role}}</td>
+                <td>{{user.bookingCount}}</td>
+                <td>{{user.updatedAt | date: "dd MMM yyyy"}}</td>
+                <td>
+                  <button 
+                    class="btn btn-outline-warning btn-sm mr-1 rounded" 
+                    [ngClass]="{'btn-outline-danger': user.role=='User', 'btn-outline-warning': !(user.role=='User')}"
+                    [title]="user.role!='User' ? 'Unblock' : 'Block'"
+                    (click)="toggleUserStatus(user)">
+                    <i class="fa" [ngClass]="user.role!='User' ? 'fa-unlock' : 'fa-lock'"></i>
+                  </button>
+                  <button class="btn btn-outline-danger btn-sm rounded" title="Delete" (click)="deleteUser(user.userId)">
+                    <i class="fa fa-trash-o"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="toast-backdrop"></div>
+  <div class="toast" data-autohide="false">
+    <div class="toast-header">
+      <strong class="mr-auto text-primary">{{tableName}}</strong>
+      <!-- <small class="text-muted">5 mins ago</small> -->
+      <a class="ml-2 mb-1 close" data-dismiss="toast">&times;</a>
+    </div>
+    <div class="toast-body">
+      {{crudMessage}}
+    </div>
+  </div>

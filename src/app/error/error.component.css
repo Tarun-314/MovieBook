@@ -1,0 +1,42 @@
+.error-page {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    text-align: center;
+    min-height: calc(100vh - 200px); /* Adjust based on header/footer height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.error-container {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    padding: 50px;
+    max-width: 600px;
+    width: 100%;
+}
+.error-page h1 {
+    font-size: 6rem;
+    color: #dc3545;
+    margin-bottom: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+.error-page h2 {
+    font-size: 1.5rem;
+    color: #343a40;
+    margin-top: 0;
+}
+.error-page p {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 30px;
+}
+
+.error-page .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.error-icon {
+    font-size: 4rem;
+    color: #ffc107;
+    margin-bottom: 2px;
+}

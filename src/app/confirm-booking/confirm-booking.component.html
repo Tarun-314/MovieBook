@@ -1,0 +1,57 @@
+<!-- confirm-booking.component.html -->
+<div class="ticket my-5">
+    <div class="left">
+        <div class="image">
+            <img src="{{bookingData.moviePoster}}" alt="Movie Image">
+        </div>
+    </div>
+    <div class="ticket-info">
+        <p class="date">
+            <span>{{bookingData.selectedDate | date:"EEEE" |uppercase}}</span>
+            <span class="date_format">{{bookingData.selectedDate | date:"dd MMM" |uppercase}}</span>
+        </p>
+        <div class="show-name">
+            <h1>{{bookingData.movieName}}</h1>
+        </div>
+        <div class="show-name">
+            <h2>Screen {{bookingData.screenNumber}}</h2>
+        </div>
+        <div class="seats">
+            <p>Seat(s): {{bookingData.seats}}</p>
+        </div>
+        <div class="location d-flex justify-content-between">
+            <p><i class="fa fa-map-marker text-danger"></i> {{bookingData.theatreArea}}</p>
+            <p><span class="text-info">Amount Paid:</span> Rs. {{bookingData.amount}}</p>
+        </div>
+    </div>
+    <div class="right">
+        <div class="right-info-container">
+            <p class="admit-one">
+                <span>BOOK MOVIE</span>
+                <span>BOOK MOVIE</span>
+                <span>BOOK MOVIE</span>
+            </p>
+            <div class="show-name">
+                <h1>Theatre: {{bookingData.movieName}}</h1>
+            </div>
+            <div class="time">
+                <p>Show Time: <span class="text-muted">{{bookingData.selectedTime}}</span></p>
+            </div>
+            <div class="barcode">
+                <img [src]="qrCodeUrl" alt="QR code">
+            </div>
+            <p class="ticket-number mt-2 mb-0">Booking ID : <span class="text-muted small">{{ bookingData.transactionId }}</span></p>
+            <p>Payment Method : <span class="text-muted">{{ bookingData.paymentMethod }}</span></p>
+            <p class="admit-one">
+                <span>BOOK MOVIE</span>
+                <span>BOOK MOVIE</span>
+                <span>BOOK MOVIE</span>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 text-center">
+        <button class="btn btn-outline-danger mb-5" (click)="downloadImage()">Download Ticket</button>
+    </div>
+</div>

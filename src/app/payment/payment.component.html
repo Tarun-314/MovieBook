@@ -1,0 +1,220 @@
+<section class="payment-page">
+    <div class="container">
+        <h1 class="font-weight-bold text-center mb-5">Payment</h1>
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card no-hover-effect2">
+                    <div class="row no-gutters">
+                        <!-- Image Column -->
+                        <div class="col-md-4 text-center d-flex align-items-center justify-content-center px-3">
+                            <img class="img-fluid rounded2" src="{{bookingData.moviePoster}}" alt="{{bookingData.movieName}}" style="max-width: 100%; height: auto;">
+                        </div>
+                        <!-- Summary Column -->
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h3 class="my-3 text-info">Payment Summary</h3>
+                                <p *ngIf="!couponApplied" class="text-muted"><strong>Amount:</strong> Rs. {{bookingData.amount}}</p>
+                                <p *ngIf="couponApplied && couponDiscount > 0" class="text-muted"><strong>Amount:</strong> <s class="text-danger">Rs. {{bookingData.amount}}</s> Rs. {{discountedAmount}}</p>
+                                <p class="text-muted"><strong>Multiplex:</strong> {{bookingData.theatreName}}</p>
+                                <p class="text-muted"><strong>Show Date:</strong> {{bookingData.selectedDate | date: "dd MMM yyyy"}}</p>
+                                <p class="text-muted"><strong>Show Time:</strong> {{bookingData.selectedTime}}</p>
+                                <p class="text-muted"><strong>Seat(s):</strong> {{bookingData.seats}}</p>
+                                <p class="text-muted">Thank you for booking with MovieBook. If you have any issues with your payment, please <a routerLink="/contact">contact</a> our support team.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Payment Options -->
+            <div class="col-md-5 payment-options mt-4 mt-md-0">
+                <!-- Coupon Code -->
+                <div class="card mb-3 px-4 py-3 no-hover-effect">
+                    <div >
+                        <form (ngSubmit)="onSubmit(f)" #f="ngForm" (keydown.enter)="$event.preventDefault()">
+                            <div class="form-group">
+                              <label for="couponCode">Enter Coupon Code</label>
+                              <div class="row">
+                                <div class="col-md-8 col-12">
+                                  <input type="text" ngModel name="code" #code="ngModel" class="form-control" required id="couponCode" placeholder="Enter your coupon code" (input)="resetCouponState()">
+                                </div>
+                                <div class="col-md-4 mt-3 mt-md-0 col-12 text-center">
+                                  <button type="submit" [ngClass]="{ disabled: f.invalid && f.touched }" class="btn btn-outline-primary btn-block apply-coupon">Apply</button>
+                                </div>
+                              </div>
+                              <span *ngIf="couponDiscount === -1 && code.touched && code.valid" class="text-danger small">Sorry, this coupon doesn't exist</span>
+                              <span *ngIf="cannotApply && code.touched && code.valid" class="text-danger small">Sorry, this coupon is cannot applicable</span>
+                              <span *ngIf="couponApplied && couponDiscount > 0 && code.touched && code.valid" class="text-success small">Coupon Applied Successfully. You saved: Rs. {{couponDiscount}}</span>
+                            </div>
+                          </form>
+                    </div>
+                </div>
+                <!-- Card Payment -->
+                <div class="card">
+                    <div class="card-header card-header2" id="cardHeading">
+                        <h5 class="card-title">Credit/Debit Card</h5>
+                    </div>
+                    <div class="card-body card-body2" id="cardDetails">
+                        <form #paymentForm="ngForm">
+                            <!-- Card Number -->
+                            <div class="form-group">
+                              <label for="cardNumber">Card Number</label>
+                              <input 
+                                type="text" 
+                                class="form-control" 
+                                id="cardNumber" 
+                                placeholder="Enter your card number" 
+                                name="cardNumber" 
+                                ngModel 
+                                required 
+                                pattern="^[0-9]{16}$" 
+                                #cardNumber="ngModel">
+                              <div *ngIf="cardNumber.invalid && cardNumber.touched" class="text-danger">
+                                Please enter a valid 16-digit card number.
+                              </div>
+                            </div>
+                            <!-- Card Name -->
+                            <div class="form-group">
+                              <label for="cardName">Name on Card</label>
+                              <input 
+                                type="text" 
+                                class="form-control" 
+                                id="cardName" 
+                                placeholder="Enter name on card" 
+                                name="cardName" 
+                                ngModel 
+                                required 
+                                pattern="^[a-zA-Z\s]+$" 
+                                #cardName="ngModel">
+                              <div *ngIf="cardName.invalid && cardName.touched" class="text-danger">
+                                Name should contain only letters.
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <!-- Expiry Date -->  
+                              <div class="form-group col-md-6">
+                                <label for="expiryDate">Expiry Date</label>
+                                <input 
+                                  type="text" 
+                                  class="form-control" 
+                                  id="expiryDate" 
+                                  placeholder="MM/YY" 
+                                  name="expiryDate" 
+                                  ngModel 
+                                  required 
+                                  pattern="^(0[1-9]|1[0-2])\/?([0-9]{2})$" 
+                                  #expiryDate="ngModel">
+                                <div *ngIf="expiryDate.invalid && expiryDate.touched" class="text-danger">
+                                  Please enter a valid expiry date (MM/YY).
+                                </div>
+                              </div>
+                              <!-- CVV -->
+                              <div class="form-group col-md-6">
+                                <label for="cvv">CVV</label>
+                                <input 
+                                  type="text" 
+                                  class="form-control" 
+                                  id="cvv" 
+                                  placeholder="CVV" 
+                                  name="cvv" 
+                                  ngModel 
+                                  required 
+                                  pattern="^[0-9]{3,4}$" 
+                                  #cvv="ngModel">
+                                <div *ngIf="cvv.invalid && cvv.touched" class="text-danger">
+                                  Please enter a valid CVV (3 or 4 digits).
+                                </div>
+                              </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" [disabled]="paymentForm.invalid" class="btn btn-outline-primary btn-block proceed-to-pay" (click)="onPay('Credit Card')">Pay Now</button>
+                            </div>
+                          </form>                          
+                    </div>
+                </div>
+                <!-- UPI Payment -->
+                <div class="card">
+                    <div class="card-header card-header2" id="upiHeading">
+                        <h5 class="card-title">UPI Payment</h5>
+                    </div>
+                    <div class="card-body card-body2" id="upiDetails">
+                        <form #upiForm="ngForm">
+                            <div class="form-group">
+                                <label for="upiId">UPI ID</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="upiId" 
+                                    placeholder="Enter your UPI ID" 
+                                    name="upiId" 
+                                    ngModel 
+                                    required 
+                                    pattern="^[\w-]+@[\w-]+$" 
+                                    #upiId="ngModel">
+                                <div *ngIf="upiId.invalid && upiId.touched" class="text-danger">
+                                    Please enter a valid UPI ID with an "&#64;" symbol.
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" [disabled]="upiForm.invalid" class="btn btn-outline-primary btn-block proceed-to-pay" (click)="onPay('UPI')">Pay Now</button>
+                            </div>
+                        </form>
+                    </div>                    
+                </div>
+                <!-- Scan and Pay -->
+                <div class="card">
+                    <div class="card-header card-header2" id="scanAndPay">
+                        <h5 class="card-title">Scan & Pay</h5>
+                    </div>
+                    <div class="card-body card-body2 text-center" >
+                        <div id="scanQr">
+
+                        </div>
+                       
+                        <div class="text-center">
+                            <button type="button" class="btn btn-outline-primary btn-block proceed-to-pay" (click)="onPay('Scanner')">Completed</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Online Payment -->
+                <div class="card">
+                    <div class="card-header card-header2" id="onlineHeading">
+                        <h5 class="card-title">Online Wallet</h5>
+                    </div>
+                    <div class="card-body card-body2" id="onlineDetails">
+                        <div class="payment-methods">
+                            <div class="row">
+                                <div class="col-6 mb-2">
+                                    <button class="btn btn-light w-100 payment-option" (click)="onSelect('Google Pay')">
+                                        <img src="https://cdn.statically.io/gh/vamsivardhanalajangi/online-movie-ticket-booking/5b926d38/images/gpay.png" alt="Google Pay" class="mr-1"> Google Pay
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn btn-light w-100 payment-option" (click)="onSelect('Paytm')">
+                                        <img src="https://cdn.statically.io/gh/vamsivardhanalajangi/online-movie-ticket-booking/5b926d38/images/Paytm_Logo.png" alt="Paytm" class="mr-1"> Paytm
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 mb-2">
+                                    <button class="btn btn-light w-100 payment-option" (click)="onSelect('PhonePe')">
+                                        <img src="https://cdn.statically.io/gh/vamsivardhanalajangi/online-movie-ticket-booking/5b926d38/images/phone_pe.png" alt="PhonePe" class="mr-1"> PhonePe
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn btn-light w-100 payment-option" (click)="onSelect('LazyPay')">
+                                        <img src="https://cdn.statically.io/gh/vamsivardhanalajangi/online-movie-ticket-booking/5b926d38/images/lazy.png" alt="LazyPay" class="mr-1"> LazyPay
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-outline-primary btn-block proceed-to-pay mt-1" (click)="onPay(selectedMethod)" [disabled]="selectedMethod==''">Pay Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>

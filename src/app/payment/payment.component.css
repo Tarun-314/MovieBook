@@ -1,0 +1,107 @@
+/* Payment Page Container */
+.payment-page {
+    padding: 50px 0 !important;
+    background-color: #f8f9fa !important;
+}
+
+/* Page Title */
+.payment-page h2 {
+    font-weight: bold !important;
+    margin-bottom: 30px !important;
+}
+
+/* Payment Options Card */
+.payment-options .card {
+    height: auto !important;
+    margin-bottom: 20px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    transition: height 0.5s ease-in-out !important;
+}
+
+/* Card Header */
+.payment-options .card-header {
+    border-radius: 10px !important;
+    background-color: #007bff !important;
+    color: white !important;
+    cursor: pointer !important;
+}
+
+/* Card Body (Hidden by Default) */
+.payment-options .card-body {
+    background-color: white !important;
+    display: none !important;
+    overflow: hidden !important; /* Ensure smooth transitions */
+    transition: max-height 0.5s ease-in-out, opacity 1s ease-in-out !important;
+}
+
+/* Card Body (Visible) */
+.payment-options .card-body.show {
+    display: block !important;
+    max-height: 1000px !important; /* Maximum height for transition */
+    opacity: 1 !important;
+    transition: max-height 0.5s ease-in-out, opacity 1s ease-in-out !important;
+}
+.rounded2
+{
+    border-radius: 15px !important;
+}
+
+.form-container {
+    background-color: white !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    padding: 20px !important;
+}
+
+/* Form Title */
+.form-container h3 {
+    margin-bottom: 20px !important;
+}
+
+/* Payment Methods Container */
+.payment-methods {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important; /* Ensure buttons stretch to fill the container */
+    width: 100% !important; /* Full width of the parent container */
+}
+
+/* Payment Method Buttons */
+.payment-methods .btn {
+    border-radius: 10px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 10px !important;
+    text-align: left !important;
+    transition: background-color 0.3s, color 0.3s !important;
+    flex: 1 !important; /* Allow buttons to grow and fill available space */
+    margin: 5px 0 !important; /* Optional: Space between buttons */
+    min-height: 50px !important; /* Optional: Minimum height for uniform appearance */
+}
+
+/* Payment Method Icons */
+.payment-methods .btn img {
+    width: 30px !important;
+    height: 30px !important;
+    margin-right: 10px !important; /* Space between icon and text */
+}
+
+/* Selected Payment Method */
+.payment-methods .btn.selected {
+    background-color: #007bff !important;
+    color: white !important;
+}
+
+/* Reset Icon Filter for Selected Payment Method */
+.payment-methods .btn.selected img {
+    filter: none !important;
+}
+
+.no-hover-effect2:hover {
+    transform: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+}

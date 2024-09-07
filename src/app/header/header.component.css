@@ -1,0 +1,171 @@
+/* General Header Styles */
+header {
+  background-color: rgba(16, 16, 16, 0.6) !important; /* Dark background color with increased transparency */
+  color: white !important;
+  padding: 10px 20px !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  backdrop-filter: blur(15px); /* Increased blur for stronger glassmorphism effect */
+  -webkit-backdrop-filter: blur(15px); /* For Safari */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for better visibility */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+}
+
+/* Navbar Brand */
+.navbar-brand {
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
+  color: white !important;
+  text-decoration: none !important;
+}
+
+.navbar-brand .text-warning {
+  color: #ffc107 !important;
+}
+
+.navbar-toggler {
+  border: none !important;
+  outline: none !important;
+}
+
+.navbar-toggler-icon {
+  background: none !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+  position: relative;
+  width: 30px;
+  height: 25px;
+}
+
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 3px;
+  background: white;
+  position: absolute;
+  left: 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggler-icon::before {
+  top: 0;
+}
+
+.navbar-toggler-icon::after {
+  bottom: 0;
+}
+
+.navbar-toggler.open .navbar-toggler-icon::before {
+  transform: rotate(45deg);
+  top: 11px; /* Adjust based on your design */
+}
+
+.navbar-toggler.open .navbar-toggler-icon::after {
+  transform: rotate(-45deg);
+  bottom: 11px; /* Adjust based on your design */
+}
+
+/* Navbar Nav */
+.navbar-nav {
+  margin-left: auto !important;
+}
+
+.form-inline {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Input Fields and Dropdown Styles with Glassmorphism */
+.form-control,
+.custom-select,
+.dropdown-toggle {
+  background-color: rgba(255, 255, 255, 0.1) !important; /* Light background with transparency */
+  border-radius: 20px !important;
+  padding: 0.5rem 1rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important; /* Light border for glassy look */
+  margin-right: 10px !important;
+  height: 38px !important; /* Uniform height */
+  line-height: 1.5 !important;
+  color: white !important; /* White text color */
+  backdrop-filter: blur(15px); /* Blur for glass effect */
+  -webkit-backdrop-filter: blur(15px); /* For Safari */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.form-control:focus,
+.custom-select:focus,
+.dropdown-toggle:focus {
+  outline: none !important; /* Remove default outline */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important; /* Focus shadow */
+}
+
+/* Dropdown Menu Styles with Glassmorphism */
+.dropdown-menu {
+  background-color: rgba(52, 58, 64, 0.5) !important; /* Transparent background */
+  backdrop-filter: blur(15px); /* Blur for glass effect */
+  -webkit-backdrop-filter: blur(15px); /* For Safari */
+  border: 1px solid rgba(255, 255, 255, 0.2) !important; /* Light border */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important; /* Depth */
+  border-radius: 0.5rem !important;
+  padding: 0 !important;
+  margin-top: 0.5rem !important;
+  width: 100% !important;
+}
+
+.dropdown-toggle {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid #6c757d !important;
+  color: white !important;
+  border-radius: 20px !important;
+  padding: 0.5rem 1rem !important;
+  display: flex !important;
+  align-items: center !important;
+  height: 38px !important;
+  line-height: 1.5 !important;
+}
+
+.dropdown-toggle img {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  margin-right: 10px !important;
+}
+
+.dropdown-menu .dropdown-item {
+  color: white !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0.5rem !important;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: rgba(73, 80, 87, 0.5) !important; /* More transparency on hover */
+}
+
+.dropdown-menu .text-info {
+  color: #17a2b8 !important;
+}
+
+.dropdown-menu .text-danger {
+  color: #dc3545 !important;
+}
+
+.dropdown-menu .fa {
+  margin-right: 0.5rem !important;
+}
+
+/* Highlight Active Dropdown Item */
+.hactive {
+  background-color: rgba(16, 16, 16, 0.7) !important;
+  color: white !important;
+}
+
+.hactive:hover {
+  cursor: default !important;
+  background-color: rgba(16, 16, 16, 0.7) !important;
+  color: white !important;
+}
+
+

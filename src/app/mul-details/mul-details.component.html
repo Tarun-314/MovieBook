@@ -1,0 +1,284 @@
+  <!-- Multiplex Details Section -->
+  <section class="container my-4">
+      <div *ngIf="!isMulPresent" class="row justify-content-center p-4">
+        <h3 class="text-danger">Invalid Parameters. Retry Again</h3>
+      </div>
+      <div class="row bg-light p-4 mx-1 rounded shadow-sm">
+        <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
+          <div class="d-flex flex-column align-items-start mb-3 mb-md-0">
+            <h4 class="text-primary mb-1 text-capitalize">{{multiplex.Name}}</h4>
+            <p class="text-muted mb-0 text-capitalize"><i class="fa fa-map-marker text-danger mr-1"></i> {{multiplex.Area}}</p>
+          </div>
+          <div class="d-flex flex-column align-items-start mb-3 mb-md-0">
+            <span class="badge badge-outline-info mb-2"><i class="fa fa-ticket mr-1"></i> M-Ticket Available</span>
+            <span class="badge badge-outline-warning"><i class="fa fa-cutlery mr-1"></i> Food & Beverages Available</span>
+          </div>
+          <div class="d-flex flex-column align-items-start mb-3 mb-md-0">
+            <p class="text-muted mb-1"><i class="fa fa-film mr-1 text-danger"></i> No. of Shows: 4</p>
+            <p class="text-muted mb-0"><i class="fa fa-tv mr-1 text-danger"></i> No. of Screens: {{multiplex.Screens}}</p>
+          </div>
+          
+          <div class="d-flex flex-column align-items-start">
+            <div>
+              <span class="text-muted mr-2 mb-2">{{multiplex.Ratings}}</span>
+              <ng-container *ngFor="let star of getStars(multiplex.Ratings)">
+                <i class="fa" [ngClass]="star + ' text-warning'"></i>
+              </ng-container>
+            </div>
+
+            <a href="{{multiplex.Location}}" target="_blank" class="text-success"><i class="fa fa-map"></i> Locate on map</a>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <section class="container">
+    <div class="row">
+        <div class="col-md-8 d-flex align-items-center">
+            <div class="d-flex flex-wrap" id="date-container">
+            </div>
+        </div>
+        <div class="col-md-4 text-md-right mt-3 mt-md-0">
+          <input type="text" [(ngModel)]="searchLM" class="form-control" placeholder="Search movies...">
+        </div>
+    </div>
+  </section>
+  
+  <section class="container my-4">
+    <div class="row">
+
+      <div class="text-center mx-3 alert alert-info w-100" role="alert" *ngIf="!isDateSelected">
+        <h6 class="text-dark my-0">Please select a date..!</h6>
+      </div>
+
+      <div class="text-center mx-3 alert alert-danger w-100" role="alert" *ngIf="linkedMovies.length==0 && isDateSelected">
+        <h6 class="text-danger my-0">No movies are playing at selected date..!</h6>
+      </div>
+
+      <div class="text-center mx-3 alert alert-danger w-100" role="alert" *ngIf="filterLinkedMovies().length==0 && searchLM.length!=0 && isDateSelected">
+        <h6 class="text-danger my-0">Found no movies on your search at the selected date..!..!</h6>
+      </div>
+
+      <div *ngFor="let lm of filterLinkedMovies()"  class="col-md-6 my-1">
+        <div class="card mb-3 multiplex-card">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="{{lm.image}}" class="movie-card-img" alt="{{lm.title}}">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body px-3">
+                      <h4 class="card-title mb-3">{{lm.title}}</h4>
+                      <h4 class="movieID d-none mb-3">{{lm.movieId}}</h4>
+                      <p class="small card-subtitle text-primary"><i class="fa fa-tv"></i> Screen no : <span class="text-muted screenNumber">{{lm.screenNumber}}</span></p>
+                      <p class="small my-1 card-text text-dark"><i class="fa fa-language"></i> Language: <span class="text-muted movieLang">{{lm.language}}</span></p>
+                      <p class="small my-1 card-text text-info"><i class="fa fa-calendar"></i> Release Date: <span class="text-muted">{{lm.releaseDate | date: "dd MMM yyyy"}}</span></p>
+                      <p class="small my-1 card-text text-danger"><i class="fa fa-heart text-danger"></i> Likes: <span class="text-muted">{{lm.likes | likes}}</span></p>
+                      <p class="small my-1 card-text text-warning"><i class="fa fa-star"></i> Rating: <span class="text-muted">{{lm.rating}}</span></p>
+                      
+                      <div class="d-flex flex-wrap my-1 mt-2 align-items-center justify-content-between">
+                        <button *ngFor="let st of getShowTimes(lm.showTimes)" class="btn btn-sm btn-outline-success rounded mr-1 my-1" [attr.data-time]="st">{{st}}</button>
+                        <button class="btn btn-outline-info btn-sm rounded confirm-selection my-1 flex-grow-1" style="display: none;">Confirm Selection</button>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+     </div>
+  
+  </div>
+  </section>
+
+  <!-- Modal -->
+<div class="modal fade" id="selectionModal" tabindex="-1" role="dialog" aria-labelledby="selectionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="selectionModalLabel"><i class="fa fa-ticket"></i> Hurrah..! Book your seats now.</h5>
+          <a href="#" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </a>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <!-- Left Side: Multiplex and Area -->
+            <div class="col-md-6 col-12">
+              <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+                <i class="fa fa-film fa-2x text-danger mr-3"></i>
+                <div>
+                  <p class="mb-1 font-weight-bold text-dark" id="selectedMultiplexName">Not Selected</p>
+                  <p class="mb-1 text-secondary small" id="selectedArea"><i class="fa fa-map-marker text-danger"></i>Not Selected</p>
+                </div>
+              </div>
+            </div>
+            <!-- Right Side: Date and Show Time -->
+            <div class="col-md-6 col-12">
+              <div class="d-flex align-items-center justify-content-center justify-content-md-end">
+                <i class="fa fa-calendar fa-2x text-success mr-3"></i>
+                <div>
+                  <p class="mb-1 font-weight-bold text-dark" id="selectedDate">Date: <span class="text-muted">Not Selected</span></p>
+                  <p class="mb-1 text-secondary" id="selectedTime"><i class="fa fa-clock-o text-primary"></i> Show Time: <span class="text-muted">Not Selected</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <!-- Seat Matrix -->
+          <div class="screen-bar text-center mb-3 mx-auto rounded">
+            <span class="screen-label">SCREEN</span>
+          </div>
+          <div class="seat-grid">
+            <div class="seat-row" data-price="100">
+              <div class="seat-label">A</div>
+              <div class="seat" data-seat-number="1">1</div>
+              <div class="seat" data-seat-number="2">2</div>
+              <div class="seat" data-seat-number="3">3</div>
+              <div class="seat" data-seat-number="4">4</div>
+              <div class="seat" data-seat-number="5">5</div>
+              <div class="seat" data-seat-number="6">6</div>
+              <div class="seat" data-seat-number="7">7</div>
+              <div class="seat" data-seat-number="8">8</div>
+              <div class="seat" data-seat-number="9">9</div>
+              <div class="seat" data-seat-number="10">10</div>
+            </div>
+  
+            <div class="seat-row" data-price="100">
+              <div class="seat-label">B</div>
+              <div class="seat" data-seat-number="1">1</div>
+              <div class="seat" data-seat-number="2">2</div>
+              <div class="seat" data-seat-number="3">3</div>
+              <div class="seat" data-seat-number="4">4</div>
+              <div class="seat" data-seat-number="5">5</div>
+              <div class="seat" data-seat-number="6">6</div>
+              <div class="seat" data-seat-number="7">7</div>
+              <div class="seat" data-seat-number="8">8</div>
+              <div class="seat" data-seat-number="9">9</div>
+              <div class="seat" data-seat-number="10">10</div>
+            </div>
+  
+            <div class="seat-row" data-price="100">
+              <div class="seat-label">C</div>
+              <div class="seat" data-seat-number="1">1</div>
+              <div class="seat" data-seat-number="2">2</div>
+              <div class="seat" data-seat-number="3">3</div>
+              <div class="seat" data-seat-number="4">4</div>
+              <div class="seat" data-seat-number="5">5</div>
+              <div class="seat" data-seat-number="6">6</div>
+              <div class="seat" data-seat-number="7">7</div>
+              <div class="seat" data-seat-number="8">8</div>
+              <div class="seat" data-seat-number="9">9</div>
+              <div class="seat" data-seat-number="10">10</div>
+            </div>
+  
+            <div class="seat-row" data-price="150">
+              <div class="seat-label">D</div>
+              <div class="seat" data-seat-number="1">1</div>
+              <div class="seat" data-seat-number="2">2</div>
+              <div class="seat" data-seat-number="3">3</div>
+              <div class="seat" data-seat-number="4">4</div>
+              <div class="seat" data-seat-number="5">5</div>
+              <div class="seat" data-seat-number="6">6</div>
+              <div class="seat" data-seat-number="7">7</div>
+              <div class="seat" data-seat-number="8">8</div>
+              <div class="seat" data-seat-number="9">9</div>
+              <div class="seat" data-seat-number="10">10</div>
+            </div>
+  
+            <div class="seat-row" data-price="150">
+              <div class="seat-label">E</div>
+              <div class="seat" data-seat-number="1">1</div>
+              <div class="seat" data-seat-number="2">2</div>
+              <div class="seat" data-seat-number="3">3</div>
+              <div class="seat" data-seat-number="4">4</div>
+              <div class="seat" data-seat-number="5">5</div>
+              <div class="seat" data-seat-number="6">6</div>
+              <div class="seat" data-seat-number="7">7</div>
+              <div class="seat" data-seat-number="8">8</div>
+              <div class="seat" data-seat-number="9">9</div>
+              <div class="seat" data-seat-number="10">10</div>
+            </div>
+  
+            <div class="seat-row" data-price="150">
+              <div class="seat-label">F</div>
+              <div class="seat" data-seat-number="1">1</div>
+              <div class="seat" data-seat-number="2">2</div>
+              <div class="seat" data-seat-number="3">3</div>
+              <div class="seat" data-seat-number="4">4</div>
+              <div class="seat" data-seat-number="5">5</div>
+              <div class="seat" data-seat-number="6">6</div>
+              <div class="seat" data-seat-number="7">7</div>
+              <div class="seat" data-seat-number="8">8</div>
+              <div class="seat" data-seat-number="9">9</div>
+              <div class="seat" data-seat-number="10">10</div>
+            </div>
+  
+            <div class="seat-row" data-price="200">
+              <div class="seat-label">G</div>
+              <div class="seat" data-seat-number="1">1</div>
+              <div class="seat" data-seat-number="2">2</div>
+              <div class="seat" data-seat-number="3">3</div>
+              <div class="seat" data-seat-number="4">4</div>
+              <div class="seat" data-seat-number="5">5</div>
+              <div class="seat" data-seat-number="6">6</div>
+              <div class="seat" data-seat-number="7">7</div>
+              <div class="seat" data-seat-number="8">8</div>
+              <div class="seat" data-seat-number="9">9</div>
+              <div class="seat" data-seat-number="10">10</div>
+            </div>
+            <div class="seat-row" data-price="200">
+              <div class="seat-label">H</div>
+              <div class="seat" data-seat-number="1">1</div>
+              <div class="seat" data-seat-number="2">2</div>
+              <div class="seat" data-seat-number="3">3</div>
+              <div class="seat" data-seat-number="4">4</div>
+              <div class="seat" data-seat-number="5">5</div>
+              <div class="seat" data-seat-number="6">6</div>
+              <div class="seat" data-seat-number="7">7</div>
+              <div class="seat" data-seat-number="8">8</div>
+              <div class="seat" data-seat-number="9">9</div>
+              <div class="seat" data-seat-number="10">10</div>
+            </div>
+          </div>
+          <div class="seat-details mt-4 row">
+            <!-- Left Side: Ticket Details -->
+            <div class="col-sm-5 text-center text-sm-left">
+              <p>Selected Seat(s): <span id="selectedSeats" class="text-secondary small">None</span></p>
+              <p>Total Price: <span class="small text-secondary">Rs. </span> <span id="totalPrice" class="text-secondary small">0</span></p>
+            </div>
+            <!-- Right Side: Price Labels -->
+            <div class="col-sm-7 d-flex align-items-center justify-content-end">
+              <div class="row">
+                <div class="col-12 d-flex align-items-center justify-content-center">
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="seat" style="background-color: #c5cfdd;"></div>
+                    <p class="mr-2 ml-1 mb-0 text-secondary mytext">Silver (Rs.100)</p>
+                  </div>
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="seat" style="background-color: #ecd86b;"></div>
+                    <p class="mr-2 mb-0 ml-1 text-secondary mytext">Gold (Rs.150)</p>
+                  </div>
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="seat" style="background-color: #95cddf;"></div>
+                    <p class="mb-0 ml-1 text-secondary mytext">Platinum (Rs.200)</p>
+                  </div>
+                </div>
+                <div class="col-12 d-flex align-items-center justify-content-center">
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="seat" style="background-color: #3d3c3c;"></div>
+                    <p class="mb-0 ml-1 mr-2 text-secondary mytext">Sold</p>
+                  </div>
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="seat" style="background-color: rgb(253, 124, 124);"></div>
+                    <p class="mb-0 ml-1 text-secondary mytext">Selected</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger btn-sm rounded" data-dismiss="modal">Close</button>
+          <button class="btn btn-outline-success btn-sm rounded" id="checkoutButton" disabled (click)="checkOut()">Checkout <i class="fa fa-sign-out"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>

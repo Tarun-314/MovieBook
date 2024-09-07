@@ -1,0 +1,41 @@
+<!-- Available Movies Section -->
+<section class="container-fluid available-movies">
+    <div class="container">
+      <div class="row mb-4 align-items-center">
+        <div class="col-md-9">
+          <h2>Available Movies</h2>
+        </div>
+        <div class="col-md-3 d-flex justify-content-md-end">
+          <input [(ngModel)]="searchMov" type="text" class="form-control" placeholder="Search movies...">
+        </div>
+      </div>
+      <div class="row">
+        <div class="text-center mx-3 alert alert-danger w-100" role="alert" *ngIf="filterMovies().length==0">
+          <h6 class="text-danger my-0">No records found..!</h6>
+        </div>
+        <a *ngFor="let mov of filterMovies() | slice:0:8" routerLink="/mov-details/{{mov.MovieID}}" class="col-md-3 movie-item">
+          <div class="card">
+            <img src="{{mov.Image}}" class="card-img avail-img" alt="{{mov.Title}}">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="card-title text-dark mb-0">{{mov.Title | truncate}}</h5>
+                <span class="text-muted small">{{mov.ReleaseDate | date:'dd MMM yyyy' }}</span>
+              </div>
+              <p class="card-text text-secondary mb-2 small">
+                {{mov.Genre}}
+              </p>
+              <div class="d-flex align-items-center small justify-content-between text-muted">
+                <div>
+                  <span class="badge badge-warning mr-1">{{mov.Rating}}</span>
+                  <small class="text-muted mr-3">IMDb Ratings</small>
+                </div>
+                <div>
+                  <i class="fa fa-heart text-danger"></i> {{mov.Likes | likes}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      </div>
+</section>

@@ -1,0 +1,26 @@
+/* movie-dashboard.component.css */
+.container {
+    padding: 20px;
+  }
+  
+  .dashboard {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .content {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .options-bar {
+    width: 200px;
+    margin-left: 20px;
+    border-left: 1px solid #ccc;
+    padding-left: 20px;
+  }
+  
+  .section {
+    margin-bottom: 20px;
+  }
+  

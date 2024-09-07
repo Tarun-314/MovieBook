@@ -1,0 +1,69 @@
+<header *ngIf="isAuthenticated" class="bg-dark text-white py-2 sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" routerLink="/home">Movie<span class="text-warning">Book</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <form #form="ngForm" class="form-inline my-2 mt-3 my-lg-0 ml-auto d-flex flex-wrap">
+        <div class="flex-fill mx-1" (click)="onInputClick($event)">
+          <input
+            class="form-control mb-2 mb-sm-0"
+            type="search"
+            placeholder="Search Movies..."
+            [(ngModel)]="searchMovie"
+            (input)="onSearch()"
+            (focus)="onSearch()"
+            name="searchMovie"
+            autocomplete="off"
+            aria-label="Search"
+          />
+          <div class="dropdown">
+            <div class="dropdown-menu show" *ngIf="isDropdownOpen">
+              <ng-container *ngIf="!noMoviesFound; else noMoviesTemplate">
+                <a class="dropdown-item" (click)="onMovieSelect(movie)" routerLink="/mov-details/{{movie.MovieID}}" *ngFor="let movie of searchedMovies | slice:0:4">
+                  {{ movie.Title }}
+                </a>
+              </ng-container>
+              <ng-template #noMoviesTemplate>
+                <span class="dropdown-item text-muted">No movies like "{{ searchMovie }}"</span>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
+        <!-- City Dropdown -->
+        <div class="dropdown mb-2 mb-sm-0 flex-fill mx-1">
+          <button class="btn btn-outline-secondary text-white dropdown-toggle w-100" type="button" id="cityDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-map-marker text-white mr-1"></i> {{ selectedCity }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="cityDropdown">
+            <span class="dropdown-item small disabled">-- Select City --</span>
+            <a *ngFor="let city of Cities" class="dropdown-item text-capitalize" [attr.data-value]="city" (click)="selectCity(city)">{{ city }}</a>
+          </div>
+        </div>
+
+        <!-- User Menu -->
+        <div class="dropdown mb-2 mb-sm-0 flex-fill mx-1">
+          <button class="btn btn-outline-secondary text-white dropdown-toggle w-100" type="button" id="userMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="https://cdn-icons-png.flaticon.com/512/3048/3048127.png" alt="User" class="rounded-circle mr-2" style="width: 30px; height: 30px;"> {{user.name}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="userMenuButton">
+            <a class="dropdown-item" routerLink="/profile" routerLinkActive="hactive">
+              <i class="fa fa-user-circle-o"></i> Profile
+            </a>
+            <a *ngIf="user.role=='Admin'" class="dropdown-item" routerLink="/dashboard" routerLinkActive="hactive">
+              <i class="fa fa-dashboard"></i> Dashboard
+            </a>
+            <a *ngIf="user.role=='Admin'" class="dropdown-item" routerLink="/statistics" routerLinkActive="hactive">
+              <i class="fa fa-bar-chart"></i> Statistics
+            </a>
+            <a class="dropdown-item text-danger" href="#" (click)="onLogout()">
+              <i class="fa fa-sign-out"></i> Sign Out
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </nav>
+</header>

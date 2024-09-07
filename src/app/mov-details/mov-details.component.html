@@ -1,0 +1,138 @@
+<!-- Movie Section -->
+<section class="container my-5">
+  <div *ngIf="!isMovPresent" class="row justify-content-center p-4">
+    <h3 class="text-danger">Invalid Parameters. Retry Again</h3>
+  </div>
+    <div class="row">
+      <!-- Movie Card -->
+      <div class="col-md-12 d-flex justify-content-center">
+        <div class="card shadow w-100 no-hover-effect">
+          <div class="row no-gutters">
+            <!-- Movie Poster -->
+            <div class="col-md-4">
+              <img src="{{movie.Image}}" alt="{{movie.Title}}" class="card-img-left movie-poster-img img-fluid">
+            </div>
+            <!-- Movie Details -->
+            <div class="col-md-8">
+                <div class="card-body ml-2">
+                  <h2 class="golden-gradient-text my-4 text-capitalize">{{movie.Title}}</h2>
+                  <p class="text-muted text-capitalize"><i class="fa fa-calendar text-info "></i> <strong class="ml-2">Release:</strong> {{movie.ReleaseDate | date:"dd MMM yyyy"}}</p>
+                  <p class="text-muted text-capitalize"><i class="fa fa-list-ol text-primary "></i><strong class="ml-2">Genre:</strong> {{movie.Genre}}</p>
+                  <p class="text-muted text-capitalize"><i class="fa fa-info-circle text-secondary "></i> <strong class="ml-2">Description:</strong> {{movie.Description}}</p>
+                  <p class="text-muted text-capitalize"><i class="fa fa-clock-o text-danger "></i> <strong class="ml-2">Duration:</strong> {{movie.Duration}} mins</p>
+                  <p class="text-muted text-capitalize"><i class="fa fa-users text-success "></i> <strong class="ml-2">Casting:</strong> {{movie.Casting}}</p>
+                  <p class="text-muted text-capitalize"><i class="fa fa-star text-warning "></i> <strong class="ml-2">IMDb Ratings:</strong> {{movie.Rating}}</p>
+                  <div class="d-flex">
+                    <!-- Button to trigger modal -->
+                    <button class="btn btn-outline-danger mr-2" data-toggle="modal" data-target="#trailerModal">
+                      <i class="fa fa-play"></i> Watch Trailer
+                    </button>
+                    <a routerLink="/ticket-booking/{{movie.MovieID}}" class="btn btn-outline-success">
+                      <i class="fa fa-ticket"></i> Book Tickets
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+  
+  <section class="container mb-5">
+    <div class="card my-4 no-hover-effect shadow">
+        <div class="d-flex align-items-center justify-content-center mt-4">
+          <h3 class="golden-gradient-text mr-2">Top Reviews</h3>
+          <button class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#addReviewModal" *ngIf="canAddReview">Add Your's</button>
+        </div>
+        <div class="card-body">
+          <div *ngIf="reviews.length == 0; else elseblock" class="row justify-content-center">
+            <p class="text-muted">No reviews yet..! Be the first one to review.</p>
+          </div>
+
+          <ng-template #elseblock>
+            <div class="row">
+              <div *ngFor="let rev of reviews " class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                <div class="card h-100 multiplex-card border-primary no-hover-effect shadow">
+                  <div class="card-body">
+                    <div class="row d-flex justify-content-between align-items-center mb-2">
+                      <div class="col-8 d-flex align-items-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3048/3048127.png" alt="User" class="rounded-circle border mr-2" style="width: 40px; height: 40px;">
+                        <div>
+                          <h6 class="mb-0 text-info">{{rev.UserName}}</h6>
+                          <div class="d-flex align-items-center">
+                            <span class="mr-1 small">{{rev.Rating}}</span>
+                            <small class="text-muted">
+                              <ng-container *ngFor="let star of getStars(rev.Rating)">
+                                <i class="fa" [ngClass]="star + ' text-warning'"></i>
+                              </ng-container>
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4 text-muted my-text4">
+                        {{rev.ReviewDate | date: 'hh:mm a, MMM dd yyyy'}}
+                      </div>
+                    </div>
+                    <p class="mb-0 py-1 text-center text-secondary">{{rev.Comment}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </ng-template>
+        </div>
+      </div>
+  </section>
+  
+<!-- Modal for Adding Review -->
+<div class="modal fade" id="addReviewModal" tabindex="-1" aria-labelledby="addReviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addReviewModalLabel">Add Your Review</h5>
+        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmit()" #f="ngForm" class="mx-2">
+          <div class="form-group">
+            <label for="rating">Rating (out of 5)<span class="text-danger">*</span>:</label>
+            <input [(ngModel)]="rating"
+                   name="rating"
+                   required type="range" class="form-control-range" id="rating" min="1" max="5" step="0.1">
+            <small id="ratingValue" class="form-text text-muted">Rating: {{ rating }}</small>
+          </div>
+          <div class="form-group">
+            <label for="comment">Comment<span class="text-danger">*</span>:</label>
+            <textarea [(ngModel)]="comment"
+                      name="comment"
+                      #cmt="ngModel"
+                      required class="form-control" id="comment" rows="3" placeholder="Write your review here..."></textarea>
+            <span *ngIf="cmt.touched && cmt.invalid" class="text-danger">This field is required..!</span>
+          </div>
+          <div class="text-center">
+            <button type="submit" [disabled]="!f.valid" class="btn btn-outline-primary btn-sm my-2">Submit</button>
+            <p class="my-2 text-danger small">{{msg}}</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    <!-- Modal -->
+  <div class="modal fade" id="trailerModal" tabindex="-1" role="dialog" aria-labelledby="trailerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <!-- Embed YouTube video -->
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe id="trailerVideo" class="embed-responsive-item" src="{{movie.Trailer}}" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

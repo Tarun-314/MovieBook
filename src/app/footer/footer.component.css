@@ -1,0 +1,58 @@
+/* Footer Styles */
+footer {
+    background-color: #101010; /* Dark background color */
+    color: white; /* Text color */
+    padding: 20px 0; /* Padding for top and bottom */
+    position: relative; /* Ensures the footer is positioned correctly */
+    text-align: center; /* Center text and content */
+  }
+  
+  footer .container {
+    max-width: 1200px; /* Adjust the max width as needed */
+    margin: 0 auto; /* Center container */
+  }
+  
+  footer p {
+    margin-bottom: 1rem; /* Space below the paragraph */
+  }
+  
+  footer .text-warning {
+    color: #ffc107; /* Tailwind warning color */
+  }
+  
+  footer .social-icons {
+    margin: 1rem 0; /* Margin for social icons */
+  }
+  
+  footer .social-icons a {
+    color: white; /* Color for social icons */
+    margin-right: 1rem; /* Space between icons */
+    text-decoration: none; /* Remove underline */
+    font-size: 1.5rem; /* Adjust icon size */
+  }
+  
+  footer .social-icons a:hover {
+    color: #ffc107; /* Color on hover */
+  }
+  
+  footer a {
+    color: white; /* Text color for links */
+    text-decoration: none; /* Remove underline */
+  }
+  
+  footer a:hover {
+    color: #ffc107; /* Color on hover */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    footer .social-icons {
+      margin: 0.5rem 0; /* Adjust margin for smaller screens */
+    }
+    
+    footer .social-icons a {
+      margin-right: 0.5rem; /* Adjust space between icons */
+      font-size: 1.2rem; /* Adjust icon size for smaller screens */
+    }
+  }
+  

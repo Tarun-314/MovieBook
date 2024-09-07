@@ -1,0 +1,192 @@
+.ticket {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    background: rgb(244, 241, 241);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px, rgba(0, 0, 0, 0.22) 0px 13px 26px;
+    border-radius: 10px;
+    max-width: 900px; 
+    width: 100%;
+    overflow: hidden; /* Ensure no overflow outside the ticket container */
+}
+
+.left {
+    flex: 1; /* Flex property ensures equal size distribution */
+    display: flex;
+    position: relative;
+    overflow: hidden; /* Ensure image doesn't overflow outside .left */
+}
+
+.image {
+    height: 100%; /* Ensure the image container takes up full height of .left */
+    width: 100%;  /* Ensure the image container takes up full width of .left */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image img {
+    max-width: 100%; /* Prevents the image from growing too large */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure image covers the container */
+    border-radius: 10px 0 0 10px; /* Rounded corners on the left side */
+}
+
+.ticket-info {
+    flex: 1; /* Flex property ensures equal size distribution */
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #f3f4f5;
+}
+
+.date {
+    padding-top: 10px;
+    border-top: 1px solid rgb(20, 13, 13);
+    border-bottom: 1px solid rgb(10, 10, 10);
+    padding: 5px 5px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.date span {
+    width: 100%;
+    font-size: 32;
+}
+
+.date span:first-child {
+    text-align: center;
+}
+
+.date span:last-child {
+    text-align: center;
+}
+
+.date .date_format {
+    color: #604982;
+    font-size: 20px;
+    text-align: center;
+}
+
+.show-name {
+    font-size: 32px;
+    color: #d83565;
+    text-align: center;
+}
+
+.show-name h1 {
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.1em;
+    color: #4a437e;
+}
+
+.seats {
+    padding: 10px 0;
+    color: #4a437e;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: 700;
+}
+
+.seats span {
+    font-weight: 400;
+    color: gray;
+}
+
+.location {
+    width: 100%;
+    padding-top: 8px;
+    border-top: 1px solid gray;
+}
+
+.location .separator {
+    font-size: 20px;
+}
+
+.right {
+    flex: 1; /* Flex property ensures equal size distribution */
+    border-left: 1px dashed #404040;
+    padding: 10px;
+    overflow: hidden; /* Ensure no overflow outside .right */
+}
+
+.right .admit-one {
+    color: darkgray;
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    overflow: hidden; /* Hide any overflowing text */
+    text-overflow: ellipsis; /* Display ellipsis (...) if the text is clipped */
+}
+
+.right .admit-one span:nth-child(2) {
+    color: gray;
+}
+
+.right .right-info-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.right .show-name h1 {
+    font-size: 18px;
+}
+
+.barcode {
+    height: 140px;
+}
+
+.barcode img {
+    height: 100%;
+}
+
+.right .ticket-number {
+    color: rgb(17, 15, 15);
+}
+
+@media (max-width: 768px) {
+    .ticket {
+        flex-direction: column; /* Stack sections vertically */
+        width: 90%;
+        max-width: none; /* Remove the maximum width to fit smaller screens */
+    }
+
+    .left, .ticket-info {
+        width: 100%; /* Full width for stacked sections */
+        margin-bottom: 10px; /* Add space between the sections */
+    }
+
+    .left {
+        display: flex;
+        align-items: center; /* Center content vertically */
+        justify-content: center; /* Center content horizontally */
+    }
+
+    .image {
+        width: 100%; /* Ensure the image takes full width */
+        height: auto; /* Maintain aspect ratio */
+        max-height: 300px; /* Limit max height to avoid overflow */
+        object-fit: cover; /* Ensure the image covers its container */
+    }
+
+    .ticket-info {
+        padding: 10px;
+        background: #f8f9fa;
+    }
+
+    .right {
+        flex: none;
+        width: 100%; /* Full width for the bottom section */
+        border-left: none; /* Remove vertical border */
+        border-top: 1px dashed #404040; /* Add horizontal border */
+        margin-top: 10px; /* Add space above the .right section */
+    }
+}
