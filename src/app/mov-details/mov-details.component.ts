@@ -1,9 +1,10 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { Movie, Review } from '../models/data-model';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { DataService } from '../services/data-services';
 import { NgForm } from '@angular/forms';
 import { concatMap, of } from 'rxjs';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 declare var $: any;
 
@@ -12,11 +13,12 @@ declare var $: any;
   templateUrl: './mov-details.component.html',
   styleUrls: ['./mov-details.component.css']
 })
-export class MovDetailsComponent implements OnInit, AfterViewInit {
+export class MovDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   id:string;
   movie:Movie;
   isMovPresent:boolean = false;
+  trailerUrl: SafeResourceUrl;
 
   reviews:Review[];
   rating=3;
@@ -25,9 +27,12 @@ export class MovDetailsComponent implements OnInit, AfterViewInit {
   msg='';
   isSuccess:boolean;
   canAddReview:boolean = false;
+  isLoading:boolean =  true;
+  isLoading2:boolean =  true;
+
   @ViewChild('f') rform:NgForm;
 
-  constructor(private route:ActivatedRoute, private router:Router, private dataService:DataService){}
+  constructor(private route:ActivatedRoute, private router:Router, private dataService:DataService, private sanitizer: DomSanitizer){}
 
   ngOnInit() {
     this.route.params.subscribe(async (params: Params) => {
@@ -36,11 +41,15 @@ export class MovDetailsComponent implements OnInit, AfterViewInit {
             try {
                 await this.dataService.fetchAndAssignMovies(); // Ensure movies are fetched first
                 this.movie = this.dataService.getMovieById(this.id);
+                this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.movie.Trailer);
+                this.isLoading = false;
+
                 if (this.movie) {
                     this.isMovPresent = true;
                     await this.dataService.fetchAndAssignReviews(this.id);
                     this.dataService.reviews$.subscribe(flag => {
                         this.reviews = this.dataService.getReviews(this.id);
+                        this.isLoading2=false;
                     });
 
                     this.dataService.canAddReview(this.id).subscribe({
@@ -74,6 +83,11 @@ export class MovDetailsComponent implements OnInit, AfterViewInit {
       $('#trailerVideo').attr('src', '');
       $('#trailerVideo').attr('src', videoSrc);
     });
+  }
+  ngOnDestroy(){
+    $('.modal').modal('hide');
+    $('.modal-backdrop').remove();
+    $('body').removeClass('modal-open');
   }
 
   onSubmit() {
