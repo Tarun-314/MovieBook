@@ -14,6 +14,7 @@ declare var $: any;
 })
 export class DashboardMultiplexListComponent implements AfterViewChecked, OnInit, OnDestroy{
   crudMessage: string = '';
+  isLoading:boolean = true;
   constructor(private service:DashboardService){}
   
   Mmultiplex:UTheatre=new UTheatre();
@@ -95,9 +96,11 @@ export class DashboardMultiplexListComponent implements AfterViewChecked, OnInit
       }
         this.multiplexes = data;
         this.multiplexesLoaded=true;
+        this.isLoading=false;
       },
       error:(error) => {
         console.error('Error fetching theaters:', error);
+        this.isLoading=false;
       }
     });
   }
