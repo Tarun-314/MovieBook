@@ -1,92 +1,163 @@
-<div class="container mt-5">
-  <div class="card p-4">
+<!-- Statistics Section -->
+<section class="container my-2">
     <div class="text-center mb-4">
-      <select (change)="selectMonth($event)">
-    <option Selected disabled>--select month--</option>
-      <option value="2024-01-01">January</option>
-      <option value="2024-02-01">February</option>
-      <option value="2024-03-01">March</option>
-      <option value="2024-04-01">April</option>
-      <option value="2024-05-01">May</option>
-      <option value="2024-06-01">June</option>
-      <option value="2024-07-01">July</option>
-      <option value="2024-08-01">August</option>
-      <option value="2024-09-01">September</option>
-      <option value="2024-10-01">October</option>
-      <option value="2024-11-01">November</option>
-      <option value="2024-12-01">December</option>    
-    </select>
-    </div>
-    <div class="row">
-    <div class="col-md-6">
-    <div class="card mb-4">
-    <div class="card-body text-center">
-    <h2 class="card-title">Movie of the month</h2>
-    <img *ngIf="moviePoster" [src]="moviePoster" class="img-fluid" alt="Movie Poster">
-    <div *ngIf="!moviePoster" class="empty-card">
-                  Please Select Month
-    </div>
-    <div *ngIf="moviePoster==none" class="empty-card">
-     No Movie of the month
-</div>
-    <div class="rating mt-2">
-    <!-- Display stars here -->
-    <ng-container *ngFor="let star of getStarsmovie()">
-      <i class="fa" [ngClass]="star + ' text-warning'"></i>
-      </ng-container>         
-    </div>
-    </div>
-    </div>
-    </div>
-    <div class="col-md-6">
-    <div class="card mb-4">
-    <div class="card-body text-center">
-    <h2 class="card-title">Disaster of the month</h2>
-    <img *ngIf="disasterPoster" [src]="disasterPoster" class="img-fluid" alt="Disaster Poster">
-    <div *ngIf="!disasterPoster" class="empty-card">
-      Please Select Month
-    </div>
-    <div *ngIf="disasterPoster==none" class="empty-card">
-      No Disaster of the month
- </div>
-    <div class="rating mt-2">
-    <!-- Display stars here -->
-    <ng-container *ngFor="let star of getStarsdisaster()">
-      <i class="fa" [ngClass]="star + ' text-warning'"></i>
-      </ng-container>  
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <div class="card no-hover-effect my-4">
-      <select id="theatre-id" class="form-control form-control-sm" (change)="GetTheatreStats($event)">
-        <option value="" disabled selected>Select Theatre</option>
-        <option *ngFor="let theatre of selectedMultiplexes" [value]="theatre.theatreId">{{ theatre.name }}</option>
+      <h3 class="golden-gradient-text my-4">Average Performances</h3>
+      <select (change)="selectMonth($event)" class="form-select form-select-lg mb-4">
+        <option selected disabled>--select month--</option>
+        <option value="2024-01-01">January</option>
+        <option value="2024-02-01">February</option>
+        <option value="2024-03-01">March</option>
+        <option value="2024-04-01">April</option>
+        <option value="2024-05-01">May</option>
+        <option value="2024-06-01">June</option>
+        <option value="2024-07-01">July</option>
+        <option value="2024-08-01">August</option>
+        <option value="2024-09-01">September</option>
+        <option value="2024-10-01">October</option>
+        <option value="2024-11-01">November</option>
+        <option value="2024-12-01">December</option>
       </select>
-      <div class="col-12 col-sm-6">
-        <canvas baseChart
-                [data]="barChartData"
-                [labels]="barChartLabels"
-                [options]="barChartOptions"
-                [legend]="barChartLegend"
-                [type]="barChartType"
-                >
-        </canvas>
-      </div>
-      <div  class="col-12 col-sm-6">
-        <select id="movie-id" class="form-control form-control-sm" (change)="GetMovieCollection($event)">
-          <option value="" disabled selected>Select Movie</option>
-          <option *ngFor="let movie of movies" [value]="movie.movieId">{{ movie.title }}</option>
-        </select>
-        <canvas
-        baseChart
-        [data]="pieChartData"
-        [type]="pieChartType"
-        [legend]="false"
-      >
-      </canvas>
-       </div>
     </div>
-</div>
+  
+    <!-- Statistics Cards -->
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card no-hover-effect shadow">
+          <div class="card-body text-center">
+            <h4 class="card-title text-info my-4">Movie of the Month</h4>
+            <img *ngIf="movie" [src]="movie.image" class="img-fluid mb-3 rounded-image" alt="{{movie.title}}">
+            <div *ngIf="!movie && !noMovie" class="empty-card small no-hover-effect text-muted mb-3">
+              <i class="fa fa-exclamation-circle"></i> Please Select Month
+            </div>
+            <div *ngIf="noMovie" class="small no-hover-effect text-danger mb-3">
+              <i class="fa fa-times-circle"></i> No Movie of the Month
+            </div>
+            <div *ngIf="movie" class="d-flex justify-content-center my-2">
+              <div class="text-left">
+                <h2 class="text-dark text-capitalize my-2">{{movie.title}}</h2>
+                <p class="text-muted text-capitalize">
+                  <i class="fa fa-calendar text-info"></i> 
+                  <strong class="ml-2">Release:</strong> {{movie.releaseDate | date:"dd MMM yyyy"}}
+                </p>
+                <p class="text-muted text-capitalize">
+                  <i class="fa fa-list-ol text-primary"></i>
+                  <strong class="ml-2">Genre:</strong> {{movie.genre}}
+                </p>
+                <p class="text-muted text-capitalize">
+                  <i class="fa fa-clock-o text-danger"></i> 
+                  <strong class="ml-2">Duration:</strong> {{movie.duration}} mins
+                </p>
+                <p class="text-muted text-capitalize">
+                  <i class="fa fa-users text-success"></i> 
+                  <strong class="ml-2">Casting:</strong> {{movie.casting}}
+                </p>
+                <div class="d-flex align-items-center">
+                  <i class="fa fa-star text-warning "></i>
+                  <p class="text-muted text-capitalize mb-0">
+                    <strong class="ml-2">Ratings:</strong> {{movie.rating}}
+                  </p>
+                  <ng-container *ngFor="let star of getStar(movie.rating)">
+                    <i class="fa" [ngClass]="star + ' text-warning mx-1'"></i>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-6 mb-4">
+        <div class="card no-hover-effect shadow">
+          <div class="card-body text-center">
+            <h4 class="card-title text-info my-4">Disaster of the Month</h4>
+            <img *ngIf="disasterMovie" [src]="disasterMovie.image" class="img-fluid mb-3 rounded-image" alt="{{disasterMovie.title}}">
+            <div *ngIf="!disasterMovie && !noDisasterMovie" class="empty-card no-hover-effect text-muted mb-3 small">
+              <i class="fa fa-exclamation-circle"></i> Please Select Month
+            </div>
+            <div *ngIf="noDisasterMovie" class="no-hover-effect text-danger small mb-3">
+              <i class="fa fa-times-circle"></i> No Disaster of the Month
+            </div>
+            <div *ngIf="disasterMovie" class="d-flex justify-content-center my-2">
+              <div class="text-left">
+                <h2 class="text-dark text-capitalize my-2">{{disasterMovie.title}}</h2>
+                <p class="text-muted text-capitalize">
+                  <i class="fa fa-calendar text-info"></i> 
+                  <strong class="ml-2">Release:</strong> {{disasterMovie.releaseDate | date:"dd MMM yyyy"}}
+                </p>
+                <p class="text-muted text-capitalize">
+                  <i class="fa fa-list-ol text-primary"></i>
+                  <strong class="ml-2">Genre:</strong> {{disasterMovie.genre}}
+                </p>
+                <p class="text-muted text-capitalize">
+                  <i class="fa fa-clock-o text-danger"></i> 
+                  <strong class="ml-2">Duration:</strong> {{disasterMovie.duration}} mins
+                </p>
+                <p class="text-muted text-capitalize">
+                  <i class="fa fa-users text-success"></i> 
+                  <strong class="ml-2">Casting:</strong> {{disasterMovie.casting}}
+                </p>
+                <div class="d-flex align-items-center">
+                  <i class="fa fa-star text-warning "></i>
+                  <p class="text-muted text-capitalize mb-0">
+                    <strong class="ml-2">Ratings:</strong> {{disasterMovie.rating}}
+                  </p>
+                  <ng-container *ngFor="let star of getStar(disasterMovie.rating)">
+                    <i class="fa" [ngClass]="star + ' text-warning mx-1'"></i>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Theatre and Movie Statistics -->
+  <div class="card no-hover-effect my-4 shadow">
+    <div class="card-body">
+      <h3 class="text-center golden-gradient-text my-4">Theatre and Movie Statistics</h3>
+      <div class="row">
+        <div class="col-lg-6 col-md-12 mb-4 mt-2">
+          <div class="form-group text-center">
+            <select id="theatre-id" class="form-select form-select-sm" (change)="GetTheatreStats($event)">
+              <option value="" disabled selected>Select Theatre</option>
+              <option *ngFor="let theatre of selectedMultiplexes" [value]="theatre.theatreId">{{ theatre.name }}</option>
+            </select>
+          </div>
+          <ng-container *ngIf="barChartData && barChartData.datasets[0].data.length">
+            <div class="chart-container">
+              <canvas baseChart
+                      [data]="barChartData"
+                      [labels]="barChartLabels"
+                      [options]="barChartOptions"
+                      [legend]="barChartLegend"
+                      [type]="barChartType"
+                      class="mt-4">
+              </canvas>
+            </div>
+          </ng-container>
+        </div>
+        
+        <div class="col-lg-6 col-md-12 mb-4 mt-2">
+          <div class="form-group text-center">
+            <select id="movie-id" class="form-select form-select-sm" (change)="GetMovieCollection($event)">
+              <option value="" disabled selected>Select Movie</option>
+              <option *ngFor="let movie of movies" [value]="movie.movieId">{{ movie.title }}</option>
+            </select>
+          </div>
+          <ng-container *ngIf="pieChartData && pieChartData.datasets[0].data.length">
+            <div class="chart-container">
+              <canvas baseChart
+                      [data]="pieChartData"
+                      [type]="pieChartType"
+                      [legend]="false"
+                      class="mt-4 pie-chart">
+              </canvas>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
