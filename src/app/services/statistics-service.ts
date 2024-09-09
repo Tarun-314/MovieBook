@@ -6,6 +6,7 @@ import { TheatreMovieWithName } from '../models/service-model';
 import { MovieSales } from '../models/service-model';
 import { Movie } from '../models/service-model';
 import { DataService } from './data-services';
+import { UMovie } from '../models/dashboard-model';
 
 @Injectable({providedIn: 'root'})
 export class MovieStatisticsService {
@@ -42,13 +43,11 @@ export class MovieStatisticsService {
     return this.http.get<MovieSales[]>(`${this.apiUrl}/sales/quarter`, { params });
   }
 
-  getMovieOfTheMonth(month: string): Observable<Movie> {
-    const params = new HttpParams().set('month', month);
-    return this.http.get<Movie>(`${this.apiUrl}/movie-of-the-month`, { params });
+  getMovieOfTheMonth(month: string): Observable<UMovie> {
+    return this.http.get<UMovie>(`${this.apiUrl}/MOM/${month}`,{headers:this.getHeaders()});
   }
 
-  getDisasterOfTheMonth(month: string): Observable<Movie> {
-    const params = new HttpParams().set('month', month);
-    return this.http.get<Movie>(`${this.apiUrl}/disaster-of-the-month`, { params });
+  getDisasterOfTheMonth(month: string): Observable<UMovie> {
+    return this.http.get<UMovie>(`${this.apiUrl}/DOM/${month}`,{headers:this.getHeaders()});
   }
 }

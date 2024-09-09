@@ -1,93 +1,85 @@
 <div class="container mt-5">
-  <div style="display: block;">
-    <canvas baseChart
-            [data]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [type]="barChartType"
-            >
-    </canvas>
-  </div>
-  
-  <button (click)="updateChartData()">Update Chart Data</button>
-  <!-- List of Movies in a Week -->
-  <div class="card">
-    <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
-        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          List of Movies in a Week in a Specific Multiplex
-        </button>
-      </h5>
+  <div class="card p-4">
+    <div class="text-center mb-4">
+      <select (change)="selectMonth($event)">
+    <option Selected disabled>--select month--</option>
+      <option value="2024-01-01">January</option>
+      <option value="2024-02-01">February</option>
+      <option value="2024-03-01">March</option>
+      <option value="2024-04-01">April</option>
+      <option value="2024-05-01">May</option>
+      <option value="2024-06-01">June</option>
+      <option value="2024-07-01">July</option>
+      <option value="2024-08-01">August</option>
+      <option value="2024-09-01">September</option>
+      <option value="2024-10-01">October</option>
+      <option value="2024-11-01">November</option>
+      <option value="2024-12-01">December</option>    
+    </select>
     </div>
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
-        <!-- Content for List of Movies in a Week -->
+    <div class="row">
+    <div class="col-md-6">
+    <div class="card mb-4">
+    <div class="card-body text-center">
+    <h2 class="card-title">Movie of the month</h2>
+    <img *ngIf="moviePoster" [src]="moviePoster" class="img-fluid" alt="Movie Poster">
+    <div *ngIf="!moviePoster" class="empty-card">
+                  Please Select Month
+    </div>
+    <div *ngIf="moviePoster==none" class="empty-card">
+     No Movie of the month
+</div>
+    <div class="rating mt-2">
+    <!-- Display stars here -->
+    <ng-container *ngFor="let star of getStarsmovie()">
+      <i class="fa" [ngClass]="star + ' text-warning'"></i>
+      </ng-container>         
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="col-md-6">
+    <div class="card mb-4">
+    <div class="card-body text-center">
+    <h2 class="card-title">Disaster of the month</h2>
+    <img *ngIf="disasterPoster" [src]="disasterPoster" class="img-fluid" alt="Disaster Poster">
+    <div *ngIf="!disasterPoster" class="empty-card">
+      Please Select Month
+    </div>
+    <div *ngIf="disasterPoster==none" class="empty-card">
+      No Disaster of the month
+ </div>
+    <div class="rating mt-2">
+    <!-- Display stars here -->
+    <ng-container *ngFor="let star of getStarsdisaster()">
+      <i class="fa" [ngClass]="star + ' text-warning'"></i>
+      </ng-container>  
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="card no-hover-effect my-4">
+      
+      <div class="col-12 col-sm-6">
+        <canvas baseChart
+                [data]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [legend]="barChartLegend"
+                [type]="barChartType"
+                >
+        </canvas>
       </div>
+      <div  class="col-12 col-sm-6">
+        <canvas
+        baseChart
+        [data]="pieChartData"
+        [type]="pieChartType"
+        [legend]="false"
+      >
+      </canvas>
+       </div>
     </div>
-  </div>
-
-  <!-- Total Ticket Sales of a Movie in a Month -->
-  <div class="card">
-    <div class="card-header" id="headingTwo">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Total Ticket Sales of a Movie in a Month
-        </button>
-      </h5>
-    </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-      <div class="card-body">
-        <!-- Content for Total Ticket Sales of a Movie in a Month -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Sales Made Movie Wise in a Quarter -->
-  <div class="card">
-    <div class="card-header" id="headingThree">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Sales Made Movie Wise in a Quarter
-        </button>
-      </h5>
-    </div>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-      <div class="card-body">
-       
-      </div>
-    </div>
-  </div>
-
-  <!-- Movie of the Month -->
-  <div class="card">
-    <div class="card-header" id="headingFour">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-          Movie of the Month
-        </button>
-      </h5>
-    </div>
-    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-      <div class="card-body">
-        <!-- Content for Movie of the Month -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Disaster of the Month -->
-  <div class="card">
-    <div class="card-header" id="headingFive">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-          Disaster of the Month
-        </button>
-      </h5>
-    </div>
-    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-      <div class="card-body">
-        <!-- Content for Disaster of the Month -->
-      </div>
-    </div>
-  </div>
 </div>

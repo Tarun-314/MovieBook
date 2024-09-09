@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChartData } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective} from 'ng2-charts';
+import { MovieStatisticsService } from '../services/statistics-service';
+import { UMovie } from '../models/dashboard-model';
 
 @Component({
   selector: 'app-statistics',
@@ -8,6 +10,13 @@ import { BaseChartDirective} from 'ng2-charts';
   styleUrl: './statistics.component.css'
 })
 export class StatisticsComponent implements OnInit{
+  
+  constructor(private service:MovieStatisticsService){}
+  none: string="None";
+  movierating:number=0;
+  disasterrating:number=0;
+  moviePoster: string | null = null; // Replace with actual poster URL or null
+  disasterPoster: string | null = null; // Replace with actual poster URL or null
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective<'bar'> | undefined;
 
@@ -39,6 +48,19 @@ export class StatisticsComponent implements OnInit{
       this.chart.update(); // Trigger chart update
     }
   }
+  @ViewChild(BaseChartDirective) piechart: BaseChartDirective | undefined;
+
+  // Pie
+  public pieChartData: ChartData<'pie', number[], string | string[]> = {
+    labels: [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'],
+    datasets: [
+      {
+        data: [300, 500, 100],
+      },
+    ],
+  };
+  public pieChartType= 'pie' as const;
+
   multiplexId: number;
   week: Date;
   movieId: number;
@@ -52,8 +74,52 @@ export class StatisticsComponent implements OnInit{
     // Initialize data fetching here
   }
 
-  getMoviesInWeek(multiplexId: number, week: Date): void {
-    // Fetch movies in a week for a specific multiplex
+   selectMonth(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const dateString = selectElement.value;
+
+      this.service.getMovieOfTheMonth(dateString).subscribe({
+        next:(data:UMovie)=>{
+          console.log(data);
+          this.moviePoster=data.image;
+          this.movierating=data.rating;
+        },
+        error:(err)=>{
+          this.moviePoster=this.none;
+        }
+      });
+      this.service.getDisasterOfTheMonth(dateString).subscribe({
+        next:(data:UMovie)=>{
+          console.log(data);
+          this.disasterPoster=data.image;
+          this.disasterrating=data.rating;
+        },
+        error:(err)=>{
+          this.disasterPoster=this.none;
+        }
+      })
+  }
+  getStarsmovie(): string[] {
+    const fullStars = Math.floor(this.movierating);
+    const halfStar = this.movierating % 1 >= 0.5 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
+    console.log(emptyStars);
+    return [
+      ...Array(fullStars).fill('fa-star'),
+      ...Array(halfStar).fill('fa-star-half-o'),
+      ...Array(emptyStars).fill('fa-star-o')
+    ];
+  }
+  getStarsdisaster(): string[] {
+    const fullStars = Math.floor(this.disasterrating);
+    const halfStar = this.disasterrating % 1 >= 0.5 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
+
+    return [
+      ...Array(fullStars).fill('fa-star'),
+      ...Array(halfStar).fill('fa-star-half-o'),
+      ...Array(emptyStars).fill('fa-star-o')
+    ];
   }
 
   getTotalTicketSales(movieId: number, month: Date): void {
