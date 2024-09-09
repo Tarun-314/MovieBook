@@ -63,6 +63,14 @@ export class MulDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     $('body').removeClass('modal-open');
   }
 
+  isPastShowTime(showTime: string): boolean {
+    const currentDate = new Date();
+    const selectedDate = this.selectedDate ? new Date(this.selectedDate) : currentDate;
+    const showDateTime = new Date(`${selectedDate.toDateString()} ${showTime}`);
+
+    return showDateTime < currentDate;
+  }
+
   getStars(rating: number): string[] {
     const fullStars = Math.floor(rating);
     const halfStar = rating % 1 >= 0.5 ? 1 : 0;
