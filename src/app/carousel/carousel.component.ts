@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 declare var $: any;
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
-  styleUrl: './carousel.component.css'
+  styleUrls: ['./carousel.component.css']
 })
-export class CarouselComponent {
-  
+export class CarouselComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     $('#carouselExampleIndicators').carousel({
-      interval: 3000
+      interval: 3000,
+      pause: false
     });
   }
 }
