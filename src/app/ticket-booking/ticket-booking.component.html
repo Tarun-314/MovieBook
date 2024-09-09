@@ -1,6 +1,6 @@
 <!-- Movie Section -->
 <section class="container my-3">
-  <div *ngIf="!isMovPresent" class="row justify-content-center p-4">
+  <div *ngIf="!isLoading && !isMovPresent" class="row justify-content-center p-4">
     <h3 class="text-danger">Invalid Parameters. Retry Again</h3>
   </div>
     <!-- Movie Name and Genres -->
