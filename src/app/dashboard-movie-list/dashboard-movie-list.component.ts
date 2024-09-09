@@ -108,6 +108,10 @@ export class DashboardMovieListComponent implements AfterViewChecked, OnInit, On
   GetMovies(){
     this.service.getAllMovies().subscribe({
       next:(data: UMovie[]) => {
+        if ($.fn.DataTable.isDataTable('#Table2')) {
+          var table = $('#Table2').DataTable();
+          table.clear().destroy();
+      }
         this.movies = data;
         this.moviesLoaded=true;
       },

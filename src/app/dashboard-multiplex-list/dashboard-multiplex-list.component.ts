@@ -89,6 +89,10 @@ export class DashboardMultiplexListComponent implements AfterViewChecked, OnInit
   GetTheatres(){
     this.service.getAllTheaters().subscribe({
       next:(data: UTheatre[]) => {
+        if ($.fn.DataTable.isDataTable('#Table')) {
+          var table = $('#Table').DataTable();
+          table.clear().destroy();
+      }
         this.multiplexes = data;
         this.multiplexesLoaded=true;
       },

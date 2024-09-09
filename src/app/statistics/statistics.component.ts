@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChartData } from 'chart.js';
+import { BaseChartDirective} from 'ng2-charts';
 
 @Component({
   selector: 'app-statistics',
@@ -6,6 +8,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './statistics.component.css'
 })
 export class StatisticsComponent implements OnInit{
+
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective<'bar'> | undefined;
+
+  // Bar chart labels and data
+  barChartLabels: string[] = ['Label 1', 'Label 2', 'Label 3', 'Label 4'];
+  barChartData: ChartData<'bar'> = {
+    labels: ['January', 'February', 'March', 'April'],
+    datasets: [
+      { data: [6500, 5009, 8000, 8001], label: 'Series A' }
+    ]
+  };
+  // Chart options
+  barChartOptions = {
+    responsive: true,
+    scales: {
+      x: {},
+      y: {
+        beginAtZero: true
+      }
+    }
+  };
+  barChartType = 'bar' as const;
+  barChartLegend = true;
+
+  // Example: Method to update the chart
+  updateChartData(): void {
+    this.barChartData.datasets[0].data= [50, 60, 70, 80]; // Update data dynamically
+    if (this.chart) {
+      this.chart.update(); // Trigger chart update
+    }
+  }
   multiplexId: number;
   week: Date;
   movieId: number;

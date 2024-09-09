@@ -81,6 +81,10 @@ export class DashboardUsersComponent implements AfterViewChecked, OnInit, OnDest
   GetUsers(){
     this.service.getAllUsers().subscribe({
       next:(data: UserWithBookingCount[]) => {
+        if ($.fn.DataTable.isDataTable('#Table4')) {
+          var table = $('#Table4').DataTable();
+          table.clear().destroy();
+      }
         this.users = data;
         this.usersLoaded=true;
       },

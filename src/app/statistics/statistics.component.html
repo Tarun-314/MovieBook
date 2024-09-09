@@ -1,4 +1,16 @@
 <div class="container mt-5">
+  <div style="display: block;">
+    <canvas baseChart
+            [data]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [type]="barChartType"
+            >
+    </canvas>
+  </div>
+  
+  <button (click)="updateChartData()">Update Chart Data</button>
   <!-- List of Movies in a Week -->
   <div class="card">
     <div class="card-header" id="headingOne">
@@ -42,7 +54,7 @@
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
       <div class="card-body">
-        <!-- Content for Sales Made Movie Wise in a Quarter -->
+       
       </div>
     </div>
   </div>

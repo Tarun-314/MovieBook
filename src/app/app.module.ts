@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
-
+import { BaseChartDirective} from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {
+  provideCharts,
+  withDefaultRegisterables,
+  } from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -76,9 +79,10 @@ import { DashboardMultiplexListComponent } from './dashboard-multiplex-list/dash
     BrowserModule,
     AppRoutingModule,
     FormsModule, 
-    HttpClientModule
+    HttpClientModule,
+    BaseChartDirective
   ],
-  providers: [],
+  providers: [provideCharts(withDefaultRegisterables())],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

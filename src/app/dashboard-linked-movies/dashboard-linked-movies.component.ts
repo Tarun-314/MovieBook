@@ -145,6 +145,10 @@ export class DashboardLinkedMoviesComponent implements AfterViewChecked, OnInit,
   GetLinkedMovies(){
     this.service.getAllTheatreMovies().subscribe({
       next:(data: TheatreMovieWithName[]) => {
+        if ($.fn.DataTable.isDataTable('#Table3')) {
+          var table = $('#Table3').DataTable();
+          table.clear().destroy();
+      }
         this.linkedMovies = data;
         this.linkedMoviesLoaded=true;
         this.selectedlinkedMovies = this.linkedMovies.filter(multiplex => multiplex.area === this.selectedCity);
