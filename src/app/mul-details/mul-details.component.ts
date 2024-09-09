@@ -29,9 +29,9 @@ export class MulDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   totalPrice: string='';
   screenNumber: string='';
   movieID:string='';
+  isLoading:boolean=true;
 
   private eventListeners: (() => void)[] = [];
-  private navigationSubscription: Subscription;
 
   constructor(private renderer: Renderer2, private router:Router, private route:ActivatedRoute, private dataService:DataService) {}
 
@@ -49,7 +49,6 @@ export class MulDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.router.navigate(['/error']);
       }
     }); 
-   
   }
 
   ngAfterViewInit() {
@@ -62,10 +61,6 @@ export class MulDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     $('#selectionModal').modal('hide');
     $('.modal-backdrop').remove();
     $('body').removeClass('modal-open');
-
-    if (this.navigationSubscription) {
-      this.navigationSubscription.unsubscribe();
-    }
   }
 
   getStars(rating: number): string[] {
@@ -120,9 +115,11 @@ export class MulDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataService.getLinkedMoviesByIDDateAPI(this.id,date).subscribe({
       next:(data: LinkedMovies[]) => {
         this.linkedMovies = data;
+        this.isLoading=false;
       },
       error:(error) => {
         console.error('Error fetching linkedmovies:', error);
+        this.isLoading=false;
       }
     });
   }
