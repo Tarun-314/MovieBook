@@ -12,8 +12,8 @@
             <form #profileUpdate="ngForm" (ngSubmit)="UpdateUser()">
               <div class="form-row">
                 <div class="form-group col-md-5">
-                  <label for="name" class="font-weight-bold text-secondary">Name</label>
-                  <input type="text" size="10" class="form-control form-control-sm" id="name" name="name" placeholder="Enter your name" [(ngModel)]="user.fullName" required
+                  <label for="name" class="font-weight-bold text-secondary">Name <span class="text-danger">*</span></label>
+                  <input type="text" size="15" class="form-control form-control-sm" id="name" name="name" placeholder="Enter your name" [(ngModel)]="user.fullName" required
                   pattern="^[a-zA-Z ]{3,15}$"
                   minlength="3"
                   #name="ngModel"
@@ -22,12 +22,12 @@
                 <div *ngIf="name.dirty && name.invalid && name.touched" class="invalid-feedback">
                   <div *ngIf="name.errors?.required">Name is required</div>
                   <div *ngIf="name.errors?.minlength">Name must be at least 3 characters</div>
-                  <div *ngIf="name.errors?.pattern">Name should only contain alphabets and spaces</div>
-                </div>
+                  <div *ngIf="name.errors?.pattern">Name should only contain alphabets, spaces, and max 15 characters</div>
+                </div>                               
                 </div>
                 <div class="col-md-1"></div>
                 <div class="form-group col-md-5">
-                  <label for="email" class="font-weight-bold text-secondary">Email</label>
+                  <label for="email" class="font-weight-bold text-secondary">Email <span class="text-danger">*</span></label>
                   <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Enter your email" [(ngModel)]="user.email" required
                   pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" 
                   #email="ngModel"
@@ -41,21 +41,21 @@
               </div>
               <div class="form-row">
                 <div class="form-group col-md-5">
-                  <label for="password" class="font-weight-bold text-secondary">Password</label>
+                  <label for="password" class="font-weight-bold text-secondary">Password <span class="text-danger">*</span></label>
                   <input type="password" class="form-control form-control-sm" id="password" name="password" placeholder="Enter your new password" [(ngModel)]="user.passwordHash"  required
                   #password="ngModel"
                   minlength="8"
                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
                   [ngClass]="{ 'is-invalid': password.invalid && password.touched, 'is-valid': password.valid}"
                 />
-                <div *ngIf="password.invalid && password.touched" class="invalid-feedback">
+                <div *ngIf="password.invalid && password.touched && password.dirty" class="invalid-feedback">
                   <div *ngIf="password.errors?.['minlength']">Password must be at least 8 characters</div>
                   <div *ngIf="password.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, and one digit</div>
                 </div>
                 </div>
                 <div class="col-md-1"></div>
                 <div class="form-group col-md-5">
-                  <label for="security-question" class="font-weight-bold text-secondary">Security Question</label>
+                  <label for="security-question" class="font-weight-bold text-secondary">Security Question <span class="text-danger">*</span></label>
                   <select class="form-control form-control-sm" id="security-question" name="security-question" [(ngModel)]="user.securityQuestion"  required
                   #securityQuestionCtrl="ngModel"
                   [ngClass]="{ 'is-invalid': securityQuestionCtrl.invalid && securityQuestionCtrl.touched }"
@@ -79,7 +79,7 @@
               </div>
               <div class="form-row">
                 <div class="form-group col-md-5">
-                  <label for="security-answer" class="font-weight-bold text-secondary">Security Answer</label>
+                  <label for="security-answer" class="font-weight-bold text-secondary">Security Answer <span class="text-danger">*</span></label>
                   <input type="text" class="form-control form-control-sm" id="security-answer" name="security-answer" placeholder="Enter your answer" [(ngModel)]="user.securityAnswer" required
                   minlength="3"
                   #securityAnswerCtrl="ngModel"
@@ -93,7 +93,7 @@
                 </div>
                 <div class="col-md-1"></div>
                 <div class="form-group col-md-5">
-                  <label for="mobile" class="font-weight-bold text-secondary">Phone Number</label>
+                  <label for="mobile" class="font-weight-bold text-secondary">Phone Number <span class="text-danger">*</span></label>
                   <input type="text" class="form-control form-control-sm" id="mobile" name="mobile" placeholder="Enter your mobile no" [(ngModel)]="user.phoneNumber" required
                   pattern="^[0-9]{10}$"
                   #mobile="ngModel"
