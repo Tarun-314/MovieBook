@@ -23,10 +23,10 @@ export class StatisticsComponent implements OnInit{
   movies:UMovie[]=[];
   none: string="None";
   selectedCity:string='';
-  movierating:number=0;
-  disasterrating:number=0;
-  moviePoster: string | null = null; // Replace with actual poster URL or null
-  disasterPoster: string | null = null; // Replace with actual poster URL or null
+  movie:UMovie=null;
+  disasterMovie:UMovie=null;
+  noMovie:boolean = false;
+  noDisasterMovie:boolean = false;
   movieCollections: MovieCollection[] = [];
   monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
@@ -42,16 +42,25 @@ export class StatisticsComponent implements OnInit{
       { data: this.theatreSales.map(sale => sale.totalAmount), label: 'Sales' }
     ]
   };
-  // Chart options
-  barChartOptions = {
-    responsive: true,
-    scales: {
-      x: {},
-      y: {
-        beginAtZero: true
-      }
+
+// Chart options
+barChartOptions: ChartConfiguration<'bar'>['options'] = {
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    x: {},
+    y: {
+      beginAtZero: true
     }
-  };
+  }
+};
+
+// Pie chart options
+pieChartOptions: ChartConfiguration<'pie'>['options'] = {
+  responsive: true,
+  maintainAspectRatio: false
+};
+
   barChartType = 'bar' as const;
   barChartLegend = true;
 
@@ -124,21 +133,24 @@ export class StatisticsComponent implements OnInit{
       this.service.getMovieOfTheMonth(dateString).subscribe({
         next:(data:UMovie)=>{
           console.log(data);
-          this.moviePoster=data.image;
-          this.movierating=data.rating;
+          this.movie=data;
+          this.noMovie = false;
         },
         error:(err)=>{
-          this.moviePoster=this.none;
+          this.movie=null;
+          this.noMovie = true;
         }
       });
+      
       this.service.getDisasterOfTheMonth(dateString).subscribe({
         next:(data:UMovie)=>{
           console.log(data);
-          this.disasterPoster=data.image;
-          this.disasterrating=data.rating;
+          this.disasterMovie = data;
+          this.noDisasterMovie = false;
         },
         error:(err)=>{
-          this.disasterPoster=this.none;
+          this.disasterMovie = null;
+          this.noDisasterMovie = true;
         }
       })
   }
@@ -203,9 +215,9 @@ export class StatisticsComponent implements OnInit{
         }
         return color;
       }
-  getStarsmovie(): string[] {
-    const fullStars = Math.floor(this.movierating);
-    const halfStar = this.movierating % 1 >= 0.5 ? 1 : 0;
+  getStar(rating: number): string[] {
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5 ? 1 : 0;
     const emptyStars = 5 - fullStars - halfStar;
     console.log(emptyStars);
     return [
@@ -214,17 +226,7 @@ export class StatisticsComponent implements OnInit{
       ...Array(emptyStars).fill('fa-star-o')
     ];
   }
-  getStarsdisaster(): string[] {
-    const fullStars = Math.floor(this.disasterrating);
-    const halfStar = this.disasterrating % 1 >= 0.5 ? 1 : 0;
-    const emptyStars = 5 - fullStars - halfStar;
 
-    return [
-      ...Array(fullStars).fill('fa-star'),
-      ...Array(halfStar).fill('fa-star-half-o'),
-      ...Array(emptyStars).fill('fa-star-o')
-    ];
-  }
 
   getTotalTicketSales(movieId: number, month: Date): void {
     // Fetch total ticket sales of a movie in a specific month
@@ -242,4 +244,3 @@ export class StatisticsComponent implements OnInit{
     // Fetch the disaster of the month
   }
 }
-
