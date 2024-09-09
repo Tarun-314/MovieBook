@@ -156,12 +156,12 @@
 
               <tr *ngFor="let mov of movies">
                 <td>{{mov.title}}</td>
-                <td>{{mov.genre}}</td>
+                <td title="{{mov.genre}}">{{mov.genre | truncate}}</td>
                 <td>{{mov.duration}} mins</td>
                 <td>{{mov.releaseDate | date:"dd MMM, yyyy"}}</td>
                 <td>{{mov.rating}}</td>
                 <td>{{mov.likes | likes}}</td>
-                <td>{{mov.casting}}</td>
+                <td title="{{mov.casting}}">{{mov.casting | truncate}}</td>
                 <td>{{mov.language}}</td>
                 <td>
                   <button class="btn btn-outline-primary btn-sm mr-1 rounded" title="Update" data-toggle="modal" data-target="#manageMovieModal" (click)="LinkMmovie(mov)">
