@@ -2,7 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective} from 'ng2-charts';
 import { MovieStatisticsService } from '../services/statistics-service';
-import { UMovie } from '../models/dashboard-model';
+import { UMovie, UTheatre } from '../models/dashboard-model';
+import { DashboardService } from '../services/dashboard-services';
+import { DataService } from '../services/data-services';
+import { MovieCollection, TheatreSales } from '../models/service-model';
 
 @Component({
   selector: 'app-statistics',
@@ -10,22 +13,33 @@ import { UMovie } from '../models/dashboard-model';
   styleUrl: './statistics.component.css'
 })
 export class StatisticsComponent implements OnInit{
+
+
   
-  constructor(private service:MovieStatisticsService){}
+  constructor(private service:MovieStatisticsService,private services:DashboardService,private dataService:DataService){}
+  theatreSales: TheatreSales[] = [];
+  selectedMultiplexes:UTheatre[]=[];
+  multiplexes:UTheatre[]=[];
+  movies:UMovie[]=[];
   none: string="None";
+  selectedCity:string='';
   movierating:number=0;
   disasterrating:number=0;
   moviePoster: string | null = null; // Replace with actual poster URL or null
   disasterPoster: string | null = null; // Replace with actual poster URL or null
+  movieCollections: MovieCollection[] = [];
+  monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+  ];
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective<'bar'> | undefined;
 
   // Bar chart labels and data
   barChartLabels: string[] = ['Label 1', 'Label 2', 'Label 3', 'Label 4'];
   barChartData: ChartData<'bar'> = {
-    labels: ['January', 'February', 'March', 'April'],
+    labels: this.theatreSales.map(sale => this.monthNames[sale.month - 1]), // Get month names
     datasets: [
-      { data: [6500, 5009, 8000, 8001], label: 'Series A' }
+      { data: this.theatreSales.map(sale => sale.totalAmount), label: 'Sales' }
     ]
   };
   // Chart options
@@ -52,12 +66,12 @@ export class StatisticsComponent implements OnInit{
 
   // Pie
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'],
-    datasets: [
-      {
-        data: [300, 500, 100],
-      },
-    ],
+    labels: this.movieCollections.map(collection => collection.theatreName), // Use theatre names as labels
+  datasets: [
+    {
+      data: this.movieCollections.map(collection => collection.totalAmount), // Use total amounts as data
+    }
+  ]
   };
   public pieChartType= 'pie' as const;
 
@@ -71,7 +85,36 @@ export class StatisticsComponent implements OnInit{
   // constructor(private movieService: MovieService) { }
 
   ngOnInit(): void {
-    // Initialize data fetching here
+    this.GetMovies();
+    this.GetTheatres(); 
+    this.dataService.selectedCity$.subscribe(city =>{
+      this.selectedCity=city;
+      this.selectedMultiplexes = this.multiplexes.filter(multiplex => multiplex.area === this.selectedCity);
+    });  
+  }
+
+  GetTheatres(){
+    this.services.getAllTheaters().subscribe({
+      next:(data: UTheatre[]) => {
+        this.multiplexes = data;
+        this.selectedMultiplexes = this.multiplexes.filter(multiplex => multiplex.area === this.selectedCity);
+      },
+      error:(error) => {
+        console.error('Error fetching theaters:', error);
+      }
+    });
+  }
+
+  GetMovies(){
+    this.services.getAllMovies().subscribe({
+      next:(data: UMovie[]) => {
+        this.movies = data;
+       
+      },
+      error:(error) => {
+        console.error('Error fetching movies:', error);
+      }
+    });
   }
 
    selectMonth(event: Event) {
@@ -99,6 +142,67 @@ export class StatisticsComponent implements OnInit{
         }
       })
   }
+  GetTheatreStats(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const theatreid = selectElement.value;
+    this.service.getTheatreStats(theatreid).subscribe({
+      next:(data:TheatreSales[])=>{
+        this.theatreSales=data;
+        this.barChartData.labels=this.theatreSales.map(sale => this.monthNames[sale.month - 1]);
+        this.barChartData.datasets[0].data=this.theatreSales.map(sale => sale.totalAmount);
+        if (this.chart) {
+          this.chart.update(); // Trigger chart update
+        }
+      },
+      error:(err)=>{
+       
+      }
+    })
+
+    }
+    GetMovieCollection(event: Event) {
+      const selectElement = event.target as HTMLSelectElement;
+      const movieid = selectElement.value;
+      this.service.getMovieCollections(movieid).subscribe({
+        next:(data:MovieCollection[])=>{
+          console.log(data)
+          this.movieCollections=data;
+          const newLabels = this.movieCollections.map(collection => collection.theatreName);
+          const newData = this.movieCollections.map(collection => collection.totalAmount);
+          const backgroundColors = this.movieCollections.map(() => {
+            return this.getRandomColor(); // Generate a random color for each segment
+          });
+          // Clone the pieChartData object to trigger change detection
+          this.pieChartData = {
+            ...this.pieChartData, // keep other properties (if any)
+            labels: newLabels,
+            datasets: [
+              {
+                ...this.pieChartData.datasets[0], // clone other dataset properties
+                data: newData,
+                backgroundColor: backgroundColors
+              }
+            ],
+            
+          };
+          console.log(this.pieChartData);
+          if (this.piechart) {
+            this.piechart.update();
+          }
+        },
+        error:(err)=>{
+         
+        }
+      })
+      }
+      getRandomColor(): string {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
   getStarsmovie(): string[] {
     const fullStars = Math.floor(this.movierating);
     const halfStar = this.movierating % 1 >= 0.5 ? 1 : 0;

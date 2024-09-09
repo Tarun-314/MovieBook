@@ -61,7 +61,10 @@
     </div>
     </div>
     <div class="card no-hover-effect my-4">
-      
+      <select id="theatre-id" class="form-control form-control-sm" (change)="GetTheatreStats($event)">
+        <option value="" disabled selected>Select Theatre</option>
+        <option *ngFor="let theatre of selectedMultiplexes" [value]="theatre.theatreId">{{ theatre.name }}</option>
+      </select>
       <div class="col-12 col-sm-6">
         <canvas baseChart
                 [data]="barChartData"
@@ -73,6 +76,10 @@
         </canvas>
       </div>
       <div  class="col-12 col-sm-6">
+        <select id="movie-id" class="form-control form-control-sm" (change)="GetMovieCollection($event)">
+          <option value="" disabled selected>Select Movie</option>
+          <option *ngFor="let movie of movies" [value]="movie.movieId">{{ movie.title }}</option>
+        </select>
         <canvas
         baseChart
         [data]="pieChartData"

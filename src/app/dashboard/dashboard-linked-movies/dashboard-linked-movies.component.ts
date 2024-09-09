@@ -19,13 +19,13 @@ export class DashboardLinkedMoviesComponent implements AfterViewChecked, OnInit,
   
   Mmultiplex:UTheatre=new UTheatre();
   selectedMultiplexes:UTheatre[]=[];
+  multiplexes:UTheatre[]=[];
+  movies:UMovie[]=[];
   isMultiplexEmpty: boolean = true;
   Mmovie:UMovie=new UMovie();
   isMovieEmpty: boolean = true;
   Mlinkedmovie:TheatreMovieWithName=new TheatreMovieWithName();
   isLinkedMoveEmpty: boolean = true;
-  multiplexes:UTheatre[]=[];
-  movies:UMovie[]=[];
   linkedMovies:TheatreMovieWithName[]=[];
   selectedlinkedMovies:TheatreMovieWithName[]=[];
   users:UserWithBookingCount[]=[];

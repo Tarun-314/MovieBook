@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TheatreMovieWithName } from '../models/service-model';
+import { MovieCollection, TheatreMovieWithName, TheatreSales } from '../models/service-model';
 import { MovieSales } from '../models/service-model';
 import { Movie } from '../models/service-model';
 import { DataService } from './data-services';
@@ -49,5 +49,11 @@ export class MovieStatisticsService {
 
   getDisasterOfTheMonth(month: string): Observable<UMovie> {
     return this.http.get<UMovie>(`${this.apiUrl}/DOM/${month}`,{headers:this.getHeaders()});
+  }
+  getTheatreStats(theatreid:string):Observable<TheatreSales[]>{
+    return this.http.get<TheatreSales[]>(`${this.apiUrl}/TheatreSales/${theatreid}`,{headers:this.getHeaders()});
+  }
+  getMovieCollections(movieid:string):Observable<MovieCollection[]>{
+    return this.http.get<MovieCollection[]>(`${this.apiUrl}/MovieCollections/${movieid}`,{headers:this.getHeaders()});
   }
 }

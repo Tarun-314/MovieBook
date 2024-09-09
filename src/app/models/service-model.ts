@@ -25,3 +25,13 @@ export interface TheatreMovieWithName {
     // other properties as needed
   }
   
+  export class MovieCollection {
+    theatreName: string = ''; // Equivalent to null! in C#
+    totalAmount: number = 0; // decimal is treated as number in TypeScript
+  }
+  
+  export class TheatreSales {
+    month: number = 0; // int is treated as number in TypeScript
+    totalAmount: number = 0; // decimal is treated as number in TypeScript
+  }
+  
