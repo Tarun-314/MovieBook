@@ -29,7 +29,7 @@
     height: 400px;
     perspective: 1000px;
     text-align: center;
-    margin-bottom: 20px;
+    margin:20px;
 }
 
 .flip-card-inner {
@@ -70,6 +70,10 @@
     padding: 20px;
 }
 
+.flip-card-back p{
+    color: #a7a7a7;
+}
+
 .card-name {
     margin-top: 10px;
     font-size: 1.2rem;
@@ -96,15 +100,4 @@
 
 #about-us .icon-box:hover i {
     color: #2ecc71;
-}
-
-@media (max-width: 768px) {
-    .flip-card {
-        width: 100%;
-        height: auto;
-    }
-
-    .flip-card-inner {
-        height: 100%;
-    }
 }
