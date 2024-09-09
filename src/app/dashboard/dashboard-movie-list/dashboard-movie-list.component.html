@@ -13,7 +13,7 @@
           <form #movieForm="ngForm">
             <div class="form-row">
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="title" class="font-weight-bold text-secondary">Title</label>
+                <label for="title" class="font-weight-bold text-secondary">Title <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm text-capitalize" id="title" name="title" [(ngModel)]="Mmovie.title"
                        required minlength="1" placeholder="Enter movie title">
                 <div *ngIf="movieForm.controls.title?.touched || movieForm.controls.title?.dirty" class="text-danger mt-2">
@@ -22,7 +22,7 @@
                 </div>
               </div>
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="genre" class="font-weight-bold text-secondary">Genre</label>
+                <label for="genre" class="font-weight-bold text-secondary">Genre <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm text-capitalize" id="genre" name="genre" [(ngModel)]="Mmovie.genre"
                        required placeholder="Enter genre">
                 <div *ngIf="movieForm.controls.genre?.touched || movieForm.controls.genre?.dirty" class="text-danger mt-2">
@@ -32,7 +32,7 @@
             </div>
             <div class="form-row">
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="duration" class="font-weight-bold text-secondary">Duration (Mins)</label>
+                <label for="duration" class="font-weight-bold text-secondary">Duration (Mins) <span class="text-danger">*</span></label>
                 <input type="number" class="form-control form-control-sm" id="duration" name="duration" [(ngModel)]="Mmovie.duration"
                        required min="1" placeholder="Enter duration">
                 <div *ngIf="movieForm.controls.duration?.touched || movieForm.controls.duration?.dirty" class="text-danger mt-2">
@@ -41,7 +41,7 @@
                 </div>
               </div>
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="release-date" class="font-weight-bold text-secondary">Release Date</label>
+                <label for="release-date" class="font-weight-bold text-secondary">Release Date <span class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm" id="release-date" name="release-date" [(ngModel)]="Mmovie.releaseDate"
                        required placeholder="Enter release date">
                 <div *ngIf="movieForm.controls['release-date']?.touched || movieForm.controls['release-date']?.dirty" class="text-danger mt-2">
@@ -51,7 +51,7 @@
             </div>
             <div class="form-row">
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="rating" class="font-weight-bold text-secondary">Rating</label>
+                <label for="rating" class="font-weight-bold text-secondary">Rating <span class="text-danger">*</span></label>
                 <input type="number" step="0.1" min="0" max="10" class="form-control form-control-sm" id="rating" name="rating" [(ngModel)]="Mmovie.rating"
                        required placeholder="Enter rating">
                 <div *ngIf="movieForm.controls.rating?.touched || movieForm.controls.rating?.dirty" class="text-danger mt-2">
@@ -61,7 +61,7 @@
                 </div>
               </div>
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="likes" class="font-weight-bold text-secondary">Likes</label>
+                <label for="likes" class="font-weight-bold text-secondary">Likes <span class="text-danger">*</span></label>
                 <input type="number" class="form-control form-control-sm" id="likes" name="likes" [(ngModel)]="Mmovie.likes"
                        required min="0" step="1" placeholder="Enter number of likes">
                 <div *ngIf="movieForm.controls.likes?.touched || movieForm.controls.likes?.dirty" class="text-danger mt-2">
@@ -72,7 +72,7 @@
             </div>
             <div class="form-row">
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="description" class="font-weight-bold text-secondary">Description</label>
+                <label for="description" class="font-weight-bold text-secondary">Description <span class="text-danger">*</span></label>
                 <textarea class="form-control form-control-sm" id="description" name="description" [(ngModel)]="Mmovie.description"
                           rows="1" placeholder="Enter description" required></textarea>
                 <div *ngIf="movieForm.controls.description?.touched || movieForm.controls.description?.dirty" class="text-danger mt-2">
@@ -80,7 +80,7 @@
                 </div>
               </div>
               <div class="form-group px-sm-4 col-md-6">
-                <label for="casting" class="font-weight-bold text-secondary">Casting</label>
+                <label for="casting" class="font-weight-bold text-secondary">Casting <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm text-capitalize" id="casting" name="casting" [(ngModel)]="Mmovie.casting"
                        required placeholder="Enter casting">
                 <div *ngIf="movieForm.controls.casting?.touched || movieForm.controls.casting?.dirty" class="text-danger mt-2">
@@ -90,7 +90,7 @@
             </div>
             <div class="form-row">
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="trailer" class="font-weight-bold text-secondary">Trailer</label>
+                <label for="trailer" class="font-weight-bold text-secondary">Trailer <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm" id="trailer" name="trailer" [(ngModel)]="Mmovie.trailer"
                        placeholder="Enter trailer URL">
                 <div *ngIf="movieForm.controls.trailer?.touched || movieForm.controls.trailer?.dirty" class="text-danger mt-2">
@@ -98,7 +98,7 @@
                 </div>
               </div>
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="language" class="font-weight-bold text-secondary">Language</label>
+                <label for="language" class="font-weight-bold text-secondary">Language <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm text-capitalize" id="language" name="language" [(ngModel)]="Mmovie.language"
                        required placeholder="Enter language">
                 <div *ngIf="movieForm.controls.language?.touched || movieForm.controls.language?.dirty" class="text-danger mt-2">
@@ -108,7 +108,7 @@
             </div>
             <div class="form-row">
               <div class="form-group px-sm-4 my-1 col-md-12">
-                <label for="image" class="font-weight-bold text-secondary">Image</label>
+                <label for="image" class="font-weight-bold text-secondary">Image <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm" id="image" name="image" [(ngModel)]="Mmovie.image"
                        placeholder="Enter image URL">
                 <div *ngIf="movieForm.controls.image?.touched || movieForm.controls.image?.dirty" class="text-danger mt-2">

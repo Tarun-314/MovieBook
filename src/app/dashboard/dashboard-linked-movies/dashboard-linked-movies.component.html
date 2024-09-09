@@ -14,7 +14,7 @@
             <div class="form-row">
               <!-- Select Theatre -->
               <div class="form-group col-md-6">
-                <label for="theatre-id" class="font-weight-bold text-secondary">Theatre</label>
+                <label for="theatre-id" class="font-weight-bold text-secondary">Theatre <span class="text-danger">*</span></label>
                 <select id="theatre-id" class="form-control form-control-sm" [(ngModel)]="Mlinkedmovie.theatreId" name="theatreId" #theatreId="ngModel" required>
                   <option value="" disabled selected>Select Theatre</option>
                   <option *ngFor="let theatre of selectedMultiplexes" [value]="theatre.theatreId">{{ theatre.name }}</option>
@@ -25,7 +25,7 @@
               </div>
               <!-- Select Movie -->
               <div class="form-group col-md-6">
-                <label for="movie-id" class="font-weight-bold text-secondary">Movie</label>
+                <label for="movie-id" class="font-weight-bold text-secondary">Movie <span class="text-danger">*</span></label>
                 <select id="movie-id" class="form-control form-control-sm" [(ngModel)]="Mlinkedmovie.movieId" name="movieId" #movieId="ngModel" required>
                   <option value="" disabled selected>Select Movie</option>
                   <option *ngFor="let movie of movies" [value]="movie.movieId">{{ movie.title }}</option>
@@ -37,7 +37,7 @@
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label for="screen-number" class="font-weight-bold text-secondary">Screen Number</label>
+                <label for="screen-number" class="font-weight-bold text-secondary">Screen Number <span class="text-danger">*</span></label>
                 <input type="number" class="form-control form-control-sm" id="screen-number" placeholder="Enter screen number" [(ngModel)]="Mlinkedmovie.screenNumber" name="screenNumber" #screenNumber="ngModel" required min="1" max="5">
                 <div *ngIf="screenNumber.invalid && (screenNumber.dirty || screenNumber.touched || linkMovieForm.submitted)" class="text-danger">
                   <small *ngIf="screenNumber.errors?.['required']">Screen number is required.</small>
@@ -46,7 +46,7 @@
                 </div>
               </div>
               <div class="form-group col-md-6">
-                <label for="show-date" class="font-weight-bold text-secondary">Show Date</label>
+                <label for="show-date" class="font-weight-bold text-secondary">Show Date <span class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm" id="show-date" placeholder="Enter show date" [(ngModel)]="Mlinkedmovie.showDate" name="showDate" #showDate="ngModel" required>
                 <div *ngIf="showDate.invalid && (showDate.dirty || showDate.touched || linkMovieForm.submitted)" class="text-danger">
                   <small *ngIf="showDate.errors?.['required']">Date is required.</small>
@@ -56,7 +56,7 @@
             <div class="form-row">
               <!-- Show Times -->
               <div class="form-group col-md-6">
-                  <label for="show-code" class="font-weight-bold text-secondary">Show Time(s)</label>
+                  <label for="show-code" class="font-weight-bold text-secondary">Show Time(s) <span class="text-danger">*</span></label>
                   <input 
                     type="text" 
                     class="form-control form-control-sm" 
@@ -77,7 +77,7 @@
               </div>
               <!-- Available Seats -->
               <div class="form-group col-md-6">
-                <label for="available-seats" class="font-weight-bold text-secondary">Available Seats</label>
+                <label for="available-seats" class="font-weight-bold text-secondary">Available Seats <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm" id="available-seats" placeholder="Enter available seats" [(ngModel)]="Mlinkedmovie.availableSeats" name="availableSeats" #availableSeats="ngModel" required min="1">
                 <div *ngIf="availableSeats.invalid && (availableSeats.dirty || availableSeats.touched || linkMovieForm.submitted)" class="text-danger">
                   <small *ngIf="availableSeats.errors?.['required']">Available seats are required.</small>

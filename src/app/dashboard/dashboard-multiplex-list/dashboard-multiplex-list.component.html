@@ -13,7 +13,7 @@
           <form #multiplexForm="ngForm">
             <div class="form-row">
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="name" class="font-weight-bold text-secondary">Name</label>
+                <label for="name" class="font-weight-bold text-secondary">Name <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm text-capitalize" id="name" name="name" [(ngModel)]="Mmultiplex.name"
                        required minlength="3" placeholder="Enter theatre name">
                 <div *ngIf="multiplexForm.controls.name?.touched || multiplexForm.controls.name?.dirty" class="text-danger mt-2">
@@ -22,7 +22,7 @@
                 </div>
               </div>
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="area" class="font-weight-bold text-secondary">Area</label>
+                <label for="area" class="font-weight-bold text-secondary">Area <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm" id="area" name="area" [(ngModel)]="Mmultiplex.area"
                        required placeholder="Enter area">
                 <div *ngIf="multiplexForm.controls.area?.touched || multiplexForm.controls.area?.dirty" class="text-danger mt-2">
@@ -32,7 +32,7 @@
             </div>
             <div class="form-row">
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="location" class="font-weight-bold text-secondary">Location</label>
+                <label for="location" class="font-weight-bold text-secondary">Location <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm " id="location" name="location" [(ngModel)]="Mmultiplex.location"
                        required placeholder="Enter location">
                 <div *ngIf="multiplexForm.controls.location?.touched || multiplexForm.controls.location?.dirty" class="text-danger mt-2">
@@ -40,7 +40,7 @@
                 </div>
               </div>
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="ratings" class="font-weight-bold text-secondary">Ratings</label>
+                <label for="ratings" class="font-weight-bold text-secondary">Ratings <span class="text-danger">*</span></label>
                 <input type="number" step="0.1" min="0" max="5" class="form-control form-control-sm" id="ratings" name="ratings" [(ngModel)]="Mmultiplex.ratings"
                        required placeholder="Enter ratings">
                 <div *ngIf="multiplexForm.controls.ratings?.touched || multiplexForm.controls.ratings?.dirty" class="text-danger mt-2">
@@ -52,7 +52,7 @@
             </div>
             <div class="form-row">
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="screens" class="font-weight-bold text-secondary">Screens</label>
+                <label for="screens" class="font-weight-bold text-secondary">Screens <span class="text-danger">*</span></label>
                 <input type="number" class="form-control form-control-sm" id="screens" name="screens" [(ngModel)]="Mmultiplex.screens"
                        required placeholder="Enter number of screens">
                 <div *ngIf="multiplexForm.controls.screens?.touched || multiplexForm.controls.screens?.dirty" class="text-danger mt-2">
@@ -60,7 +60,7 @@
                 </div>
               </div>
               <div class="form-group px-sm-4 my-1 col-md-6">
-                <label for="image" class="font-weight-bold text-secondary">Image</label>
+                <label for="image" class="font-weight-bold text-secondary">Image <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm" id="image" name="image" [(ngModel)]="Mmultiplex.image"
                        placeholder="Enter Image CDN">
                 <div *ngIf="multiplexForm.controls.image?.touched || multiplexForm.controls.image?.dirty" class="text-danger mt-2">
