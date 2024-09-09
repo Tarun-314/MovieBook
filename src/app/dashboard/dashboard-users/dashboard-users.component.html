@@ -2,10 +2,13 @@
   <div class="container my-5">
     <div class="card shadow-lg border-light no-hover-effect">
       <div class="card-body mx-2">
-        <div class="d-flex align-items-center justify-content-center">
+        <div class="d-flex align-items-center justify-content-center mt-3">
           <h4 class="text-primary my-4 my-md-2 mr-3 text-center"><i class="fa fa-users" aria-hidden="true"></i> Users</h4>
         </div>
-        <div class="table-responsive">
+        <div *ngIf="isLoading" class="loading-container2 my-5">
+          <app-loading-spinner></app-loading-spinner>
+        </div>
+        <div *ngIf="!isLoading" class="table-responsive">
           <table id="Table4" class="table table-md table-striped">
             <thead class="thead-dark">
               <tr>
@@ -24,7 +27,9 @@
               <tr *ngFor="let user of users">
                 <td class="small">{{user.userId}}</td>
                 <td>{{user.fullName}}</td>
-                <td>{{user.email}}</td>
+                <td class="small">
+                  <a [href]="'mailto:' + user.email">{{user.email}}</a>
+                </td>                
                 <td>{{user.phoneNumber}}</td>
                 <td>{{user.role}}</td>
                 <td>{{user.bookingCount}}</td>

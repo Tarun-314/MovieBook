@@ -14,6 +14,7 @@ declare var $: any;
 })
 export class DashboardUsersComponent implements AfterViewChecked, OnInit, OnDestroy{
   crudMessage: string = '';
+  isLoading:boolean = true;
   constructor(private service:DashboardService){}
   
   Mmultiplex:UTheatre=new UTheatre();
@@ -87,9 +88,11 @@ export class DashboardUsersComponent implements AfterViewChecked, OnInit, OnDest
       }
         this.users = data;
         this.usersLoaded=true;
+        this.isLoading=false;
       },
       error:(error) => {
         console.error('Error fetching users:', error);
+        this.isLoading=false;
       }
     });
   }

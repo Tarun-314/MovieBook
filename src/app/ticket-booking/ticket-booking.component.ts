@@ -134,6 +134,14 @@ export class TicketBookingComponent implements OnInit, AfterViewInit, OnDestroy 
     this.searchDate=date;
   }
 
+  isPastShowTime(showTime: string): boolean {
+    const currentDate = new Date();
+    const selectedDate = this.selectedDate ? new Date(this.selectedDate) : currentDate;
+    const showDateTime = new Date(`${selectedDate.toDateString()} ${showTime}`);
+
+    return showDateTime < currentDate;
+  }
+
   getShowTimes(jsonString: string): string[] {
   const jsonObject = JSON.parse(jsonString);
   return Object.keys(jsonObject);
