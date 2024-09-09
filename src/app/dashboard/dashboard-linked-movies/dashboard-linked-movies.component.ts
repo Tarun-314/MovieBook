@@ -19,13 +19,13 @@ export class DashboardLinkedMoviesComponent implements AfterViewChecked, OnInit,
   
   Mmultiplex:UTheatre=new UTheatre();
   selectedMultiplexes:UTheatre[]=[];
-  multiplexes:UTheatre[]=[];
-  movies:UMovie[]=[];
   isMultiplexEmpty: boolean = true;
   Mmovie:UMovie=new UMovie();
   isMovieEmpty: boolean = true;
   Mlinkedmovie:TheatreMovieWithName=new TheatreMovieWithName();
   isLinkedMoveEmpty: boolean = true;
+  multiplexes:UTheatre[]=[];
+  movies:UMovie[]=[];
   linkedMovies:TheatreMovieWithName[]=[];
   selectedlinkedMovies:TheatreMovieWithName[]=[];
   users:UserWithBookingCount[]=[];
@@ -38,6 +38,7 @@ export class DashboardLinkedMoviesComponent implements AfterViewChecked, OnInit,
   bookingLoaded:boolean=false;
   tableName:string='';
   selectedCity:string='';
+  isLoading:boolean=true;
 
   private showCrudModal(message: string,name: string): void {
     this.crudMessage = message;
@@ -123,9 +124,11 @@ export class DashboardLinkedMoviesComponent implements AfterViewChecked, OnInit,
         this.multiplexes = data;
         this.multiplexesLoaded=true;
         this.selectedMultiplexes = this.multiplexes.filter(multiplex => multiplex.area === this.selectedCity);
+        this.isLoading = false;
       },
       error:(error) => {
         console.error('Error fetching theaters:', error);
+        this.isLoading = false;
       }
     });
   }
