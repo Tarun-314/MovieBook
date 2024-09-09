@@ -34,6 +34,7 @@ export class DashboardMovieListComponent implements AfterViewChecked, OnInit, On
   usersLoaded: boolean = false;
   bookingLoaded:boolean=false;
   tableName:string='';
+  isLoading:boolean=true;
 
   private showCrudModal(message: string,name: string): void {
     this.crudMessage = message;
@@ -114,9 +115,11 @@ export class DashboardMovieListComponent implements AfterViewChecked, OnInit, On
       }
         this.movies = data;
         this.moviesLoaded=true;
+        this.isLoading=false;
       },
       error:(error) => {
         console.error('Error fetching movies:', error);
+        this.isLoading=false;
       }
     });
   }
