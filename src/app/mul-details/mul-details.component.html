@@ -79,7 +79,13 @@
                       <p class="small my-1 card-text text-warning"><i class="fa fa-star"></i> Rating: <span class="text-muted">{{lm.rating}}</span></p>
                       
                       <div class="d-flex flex-wrap my-1 mt-2 align-items-center justify-content-between">
-                        <button *ngFor="let st of getShowTimes(lm.showTimes)" class="btn btn-sm btn-outline-success rounded mr-1 my-1" [attr.data-time]="st">{{st}}</button>
+                        <button *ngFor="let st of getShowTimes(lm.showTimes)" 
+                        [disabled]="isPastShowTime(st)" 
+                        [ngClass]="{'btn-secondary': isPastShowTime(st), 'btn-outline-success': !isPastShowTime(st)}" 
+                        class="btn btn-sm rounded mr-1 my-1" 
+                        [attr.data-time]="st">
+                        {{st}}
+                       </button>
                         <button class="btn btn-outline-info btn-sm rounded confirm-selection my-1 flex-grow-1" style="display: none;">Confirm Selection</button>
                       </div>
                   </div>
