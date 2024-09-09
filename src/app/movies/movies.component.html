@@ -10,10 +10,13 @@
         </div>
       </div>
       <div class="row">
-        <div class="text-center mx-3 alert alert-danger w-100" role="alert" *ngIf="filterMovies().length==0">
+        <div *ngIf="isLoading" class="loading-container2">
+          <app-loading-spinner></app-loading-spinner>
+        </div>
+        <div class="text-center mx-3 alert alert-danger w-100" role="alert" *ngIf="!isLoading && filterMovies().length==0">
           <h6 class="text-danger my-0">No records found..!</h6>
         </div>
-        <a *ngFor="let mov of filterMovies() | slice:0:8" routerLink="/mov-details/{{mov.MovieID}}" class="col-md-3 col-12 col-sm-6 mb-4 movie-item">
+        <a *ngFor="let mov of filterMovies() | slice:0:8" routerLink="/mov-details/{{mov.MovieID}}" class="col-md-3 col-12 col-sm-6 mb-4 movie-item mt-3">
           <div class="card glassmorphism-card">
             <img src="{{mov.Image}}" class="card-img avail-img" alt="{{mov.Title}}">
             <div class="card-body">
