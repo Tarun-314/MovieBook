@@ -4,6 +4,9 @@
     <h3 class="text-danger">Invalid Parameters. Retry Again</h3>
   </div>
     <div class="row">
+      <div *ngIf="isLoading" class="loading-container2">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
       <!-- Movie Card -->
       <div class="col-md-12 d-flex justify-content-center">
         <div class="card shadow w-100 no-hover-effect">
@@ -46,6 +49,9 @@
           <button class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#addReviewModal" *ngIf="canAddReview">Add Your's</button>
         </div>
         <div class="card-body">
+          <div *ngIf="isLoading2" class="loading-container2">
+            <app-loading-spinner></app-loading-spinner>
+          </div>
           <div *ngIf="reviews.length == 0; else elseblock" class="row justify-content-center">
             <p class="text-muted">No reviews yet..! Be the first one to review.</p>
           </div>
@@ -130,7 +136,7 @@
         <div class="modal-body p-0">
           <!-- Embed YouTube video -->
           <div class="embed-responsive embed-responsive-16by9">
-            <iframe id="trailerVideo" class="embed-responsive-item" src="{{movie.Trailer}}" allowfullscreen></iframe>
+            <iframe id="trailerVideo" class="embed-responsive-item" [src]="trailerUrl" allowfullscreen></iframe>
           </div>
         </div>
       </div>
