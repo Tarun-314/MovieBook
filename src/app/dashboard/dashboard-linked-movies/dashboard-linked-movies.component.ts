@@ -1,10 +1,10 @@
 import { Component, AfterViewChecked, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { BookingDetails, TheatreMovieWithName, UMovie, UTheatre, UserWithBookingCount } from '../models/dashboard-model';
-import { DashboardService } from '../services/dashboard-services';
+import { BookingDetails, TheatreMovieWithName, UMovie, UTheatre, UserWithBookingCount } from '../../models/dashboard-model';
+import { DashboardService } from '../../services/dashboard-services';
 import { finalize } from 'rxjs';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
-import { Bookings, DataTransferObject, LinkedMovies, Movie, Multiplex, User } from '../models/data-model';
-import { DataService } from '../services/data-services';
+import { Bookings, DataTransferObject, LinkedMovies, Movie, Multiplex, User } from '../../models/data-model';
+import { DataService } from '../../services/data-services';
 
 declare var $: any;
 

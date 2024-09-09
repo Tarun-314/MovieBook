@@ -19,7 +19,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthGuard } from './guards/AuthGuard';
 import { DashboardMultiplexListComponent } from './dashboard-multiplex-list/dashboard-multiplex-list.component';
-import { DashboardMovieListComponent } from './dashboard-movie-list/dashboard-movie-list.component';
+import { DashboardMovieListComponent } from './dashboard/dashboard-movie-list/dashboard-movie-list.component';
 import { DashboardLinkedMoviesComponent } from './dashboard-linked-movies/dashboard-linked-movies.component';
 import { DashboardUsersComponent } from './dashboard-users/dashboard-users.component';
 import { DashboardUserBookingsComponent } from './dashboard-user-bookings/dashboard-user-bookings.component';
