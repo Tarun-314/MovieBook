@@ -14,6 +14,7 @@ declare var $: any;
 })
 export class DashboardUserBookingsComponent implements AfterViewChecked, OnInit, OnDestroy{
   crudMessage: string = '';
+  isLoading:boolean = true;
   constructor(private service:DashboardService){}
   
   Mmultiplex:UTheatre=new UTheatre();
@@ -62,9 +63,11 @@ export class DashboardUserBookingsComponent implements AfterViewChecked, OnInit,
       next:(data: BookingDetails[]) => {
         this.BookingHistory = data;
         this.bookingLoaded=true;
+        this.isLoading=false;
       },
       error:(error) => {
         console.error('Error fetching users:', error);
+        this.isLoading=false;
       }
     });
   }
