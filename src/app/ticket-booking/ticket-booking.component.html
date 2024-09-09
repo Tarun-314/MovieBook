@@ -50,11 +50,11 @@
       <h6 class="text-dark my-0">Please select a date..!</h6>
     </div>
 
-    <div class="text-center mx-1 alert alert-danger w-100" role="alert" *ngIf="linkedMuls.length==0 && searchLM.length==0 && isDateSelected">
+    <div class="text-center mx-1 alert alert-danger w-100" role="alert" *ngIf="!isLoading && linkedMuls.length==0 && searchLM.length==0 && isDateSelected">
       <h6 class="text-danger my-0">No movies are playing at selected date..!</h6>
     </div>
 
-    <div class="text-center mx-1 alert alert-danger w-100" role="alert" *ngIf="filterLinkedMuls().length==0 && searchLM.length!=0 && isDateSelected">
+    <div class="text-center mx-1 alert alert-danger w-100" role="alert" *ngIf="!isLoading &&  filterLinkedMuls().length==0 && searchLM.length!=0 && isDateSelected">
       <h6 class="text-danger my-0">Found no multiplexes on your search at the selected date..!</h6>
     </div>
 
