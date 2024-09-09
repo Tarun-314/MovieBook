@@ -15,6 +15,7 @@ declare var $: any;
 })
 export class DashboardLinkedMoviesComponent implements AfterViewChecked, OnInit, OnDestroy{
   crudMessage: string = '';
+  today: string;
   constructor(private service:DashboardService, private dataService:DataService){}
   
   Mmultiplex:UTheatre=new UTheatre();
@@ -70,6 +71,9 @@ export class DashboardLinkedMoviesComponent implements AfterViewChecked, OnInit,
       this.selectedMultiplexes = this.multiplexes.filter(multiplex => multiplex.area === this.selectedCity);
       this.selectedlinkedMovies = this.linkedMovies.filter(multiplex => multiplex.area === this.selectedCity);
     });
+
+    const currentDate = new Date();
+    this.today = currentDate.toISOString().split('T')[0];
   }
 
   ngAfterViewChecked(){
@@ -124,11 +128,9 @@ export class DashboardLinkedMoviesComponent implements AfterViewChecked, OnInit,
         this.multiplexes = data;
         this.multiplexesLoaded=true;
         this.selectedMultiplexes = this.multiplexes.filter(multiplex => multiplex.area === this.selectedCity);
-        this.isLoading = false;
       },
       error:(error) => {
         console.error('Error fetching theaters:', error);
-        this.isLoading = false;
       }
     });
   }
@@ -155,9 +157,11 @@ export class DashboardLinkedMoviesComponent implements AfterViewChecked, OnInit,
         this.linkedMovies = data;
         this.linkedMoviesLoaded=true;
         this.selectedlinkedMovies = this.linkedMovies.filter(multiplex => multiplex.area === this.selectedCity);
+        this.isLoading=false;
       },
       error:(error) => {
         console.error('Error fetching theatre movies:', error);
+        this.isLoading=false;
       }
     });
   }
