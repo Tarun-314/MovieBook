@@ -1,11 +1,14 @@
 <!-- Movie Section -->
 <section class="container my-5">
-  <div *ngIf="!isMovPresent" class="row justify-content-center p-4">
+  <div *ngIf="!isMovPresent && !isLoading" class="row justify-content-center p-4">
     <h3 class="text-danger">Invalid Parameters. Retry Again</h3>
   </div>
     <div class="row">
+      <div *ngIf="isLoading" class="loading-container2">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
       <!-- Movie Card -->
-      <div class="col-md-12 d-flex justify-content-center">
+      <div *ngIf="!isLoading" class="col-md-12 d-flex justify-content-center">
         <div class="card shadow w-100 no-hover-effect">
           <div class="row no-gutters">
             <!-- Movie Poster -->
@@ -46,12 +49,15 @@
           <button class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#addReviewModal" *ngIf="canAddReview">Add Your's</button>
         </div>
         <div class="card-body">
-          <div *ngIf="reviews.length == 0; else elseblock" class="row justify-content-center">
+          <div *ngIf="isLoading2" class="loading-container2 my-2">
+            <app-loading-spinner></app-loading-spinner>
+          </div>
+          <div *ngIf="!isLoading2 && reviews.length == 0; else elseblock" class="row justify-content-center">
             <p class="text-muted">No reviews yet..! Be the first one to review.</p>
           </div>
 
           <ng-template #elseblock>
-            <div class="row">
+            <div class="row" *ngIf="!isLoading2">
               <div *ngFor="let rev of reviews |slice:0:6" class="col-lg-4 col-md-6 col-sm-12 mb-3">
                 <div class="card h-100 multiplex-card border-primary no-hover-effect shadow">
                   <div class="card-body">
@@ -130,7 +136,7 @@
         <div class="modal-body p-0">
           <!-- Embed YouTube video -->
           <div class="embed-responsive embed-responsive-16by9">
-            <iframe id="trailerVideo" class="embed-responsive-item" src="{{movie.Trailer}}" allowfullscreen></iframe>
+            <iframe id="trailerVideo" class="embed-responsive-item" [src]="trailerUrl" allowfullscreen></iframe>
           </div>
         </div>
       </div>

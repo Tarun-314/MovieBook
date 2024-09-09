@@ -86,7 +86,10 @@
           <h4 class="text-primary my-2 mr-sm-3"><i class="fa fa-television"></i> Multiplex List</h4>
           <button class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#manageMultiplexModal" (click)="UnLinkMmultiplex()">Add Multiplex</button>
         </div>
-          <div class="table-responsive">
+        <div *ngIf="isLoading" class="loading-container2 my-5">
+          <app-loading-spinner></app-loading-spinner>
+        </div>
+          <div *ngIf="!isLoading" class="table-responsive">
             <table id="Table" class="table table-md table-striped">
               <thead class="thead-dark">
                 <tr>

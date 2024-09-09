@@ -42,11 +42,15 @@
 <!-- Multiplex Details Section -->
 <section class="container my-4 mb-4">
 
+    <div *ngIf="isDateSelected && isLoading" class="loading-container2">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+
     <div class="text-center mx-1 alert alert-info w-100" role="alert" *ngIf="!isDateSelected">
       <h6 class="text-dark my-0">Please select a date..!</h6>
     </div>
 
-    <div class="text-center mx-1 alert alert-danger w-100" role="alert" *ngIf="linkedMuls.length==0 && isDateSelected">
+    <div class="text-center mx-1 alert alert-danger w-100" role="alert" *ngIf="linkedMuls.length==0 && searchLM.length==0 && isDateSelected">
       <h6 class="text-danger my-0">No movies are playing at selected date..!</h6>
     </div>
 

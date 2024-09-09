@@ -13,6 +13,7 @@ export class MultiplexComponent implements OnInit, OnDestroy{
   multiplexes:Multiplex[] = [];
   searchMul='';
   private citySubscription: Subscription;
+  isLoading:boolean=true;
 
   constructor(private dataService:DataService)
   {}
@@ -22,6 +23,7 @@ export class MultiplexComponent implements OnInit, OnDestroy{
         await this.dataService.fetchAndAssignTheaters();
         this.dataService.multiplexes$.subscribe(flag => {
             this.multiplexes = this.dataService.getMultiplexByCity(city);
+            this.isLoading=false;
         });
     });
 }

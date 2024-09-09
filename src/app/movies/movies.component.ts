@@ -10,6 +10,7 @@ import { DataService } from '../services/data-services';
 export class MoviesComponent {
   movies:Movie[] = [];
   searchMov='';
+  isLoading:boolean=true;
 
   constructor(private dataService:DataService)
   {}
@@ -19,6 +20,7 @@ export class MoviesComponent {
     await this.dataService.fetchAndAssignMovies();
     this.dataService.movies$.subscribe(flag => {
       this.movies = this.dataService.getMovies();
+      this.isLoading = false;
     });
   }
 

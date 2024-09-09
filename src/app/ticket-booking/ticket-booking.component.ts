@@ -21,6 +21,7 @@ export class TicketBookingComponent implements OnInit, AfterViewInit, OnDestroy 
   linkedMuls:LinkedMovies2[] = [];
   searchLM:string ='';
   searchDate:string='';
+  isLoading:boolean = true;
 
   seatString:string = "00000000000000000000000000000000000000000000000000000000000000000000000000000000";
   selectedDate: string | null = null;
@@ -123,9 +124,11 @@ export class TicketBookingComponent implements OnInit, AfterViewInit, OnDestroy 
     this.dataService.getLinkedMulsByIDDateCityAPI(this.id,date,this.selectedCity).subscribe({
       next:(data: LinkedMovies2[]) => {
         this.linkedMuls = data;
+        this.isLoading = false;
       },
       error:(error) => {
         console.error('Error fetching linkedmuls:', error);
+        this.isLoading = false;
       }
     });
     this.searchDate=date;
