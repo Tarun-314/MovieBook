@@ -78,7 +78,13 @@
         <div class="col-12 col-md-7">
           <div class="d-flex justify-content-center justify-content-md-end mt-2 mt-md-0">
             <div class="d-flex flex-wrap">
-              <button *ngFor="let st of getShowTimes(lm.showTimes)" class="btn btn-sm btn-outline-success rounded mx-1 my-1" [attr.data-time]="st">{{st}}</button>
+              <button *ngFor="let st of getShowTimes(lm.showTimes)" 
+              [disabled]="isPastShowTime(st)" 
+              [ngClass]="{'btn-secondary': isPastShowTime(st), 'btn-outline-success': !isPastShowTime(st)}" 
+              class="btn btn-sm rounded mx-1 my-1" 
+              [attr.data-time]="st">
+              {{st}}
+             </button>
             </div>
           </div>
           <button class="btn btn-outline-info btn-sm m-1 confirm-selection w-100" style="display: none;">Confirm Selection</button>
