@@ -21,7 +21,7 @@ export class MovDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   trailerUrl: SafeResourceUrl;
 
   reviews:Review[];
-  rating=3;
+  rating=0;
   comment='';
   username:string;
   msg='';
@@ -119,9 +119,9 @@ export class MovDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       });
       
       
-      this.rating = 3;
-      this.comment = '';
       this.rform.reset();
+      this.rating = 0;
+      this.comment = '';
       this.msg='';
     } catch (e) {
       this.msg = `Error: ${e.message}`;
