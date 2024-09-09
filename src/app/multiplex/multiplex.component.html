@@ -9,7 +9,10 @@
       </div>
     </div>
     <div class="row">
-      <div class="text-center mx-3 alert alert-danger w-100" role="alert" *ngIf="filterMultiplexes().length==0">
+      <div *ngIf="isLoading" class="loading-container2">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+      <div class="text-center mx-3 alert alert-danger w-100" role="alert" *ngIf="!isLoading && filterMultiplexes().length==0">
         <h6 class="text-danger my-0">No records found..!</h6>
       </div>
       <a *ngFor="let mul of filterMultiplexes() | slice:0:6" routerLink="/mul-details/{{mul.TheatreID}}" class="col-md-4 col-sm-6 multiplex-item">
