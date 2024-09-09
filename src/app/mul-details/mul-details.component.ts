@@ -97,7 +97,7 @@ export class MulDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     // Clear existing buttons
     this.renderer.setProperty(dateContainer, 'innerHTML', '');
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         const currentDate = new Date(today);
         currentDate.setDate(today.getDate() + i);
         
