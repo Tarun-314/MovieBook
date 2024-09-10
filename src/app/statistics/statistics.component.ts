@@ -43,23 +43,38 @@ export class StatisticsComponent implements OnInit{
     ]
   };
 
-// Chart options
+// Bar chart options
 barChartOptions: ChartConfiguration<'bar'>['options'] = {
   responsive: true,
   maintainAspectRatio: false,
   scales: {
-    x: {},
+    x: {
+      title: {
+        display: true,
+        text: 'Month' // X-axis label
+      }
+    },
     y: {
-      beginAtZero: true
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: 'Total Collection' // Y-axis label
+      }
     }
   }
 };
 
-// Pie chart options
-pieChartOptions: ChartConfiguration<'pie'>['options'] = {
-  responsive: true,
-  maintainAspectRatio: false
-};
+  // Pie chart options
+  pieChartOptions: ChartConfiguration<'pie'>['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top'
+      }
+    }
+  };
 
   barChartType = 'bar' as const;
   barChartLegend = true;
@@ -225,22 +240,5 @@ pieChartOptions: ChartConfiguration<'pie'>['options'] = {
       ...Array(halfStar).fill('fa-star-half-o'),
       ...Array(emptyStars).fill('fa-star-o')
     ];
-  }
-
-
-  getTotalTicketSales(movieId: number, month: Date): void {
-    // Fetch total ticket sales of a movie in a specific month
-  }
-
-  getSalesInQuarter(quarter: number, year: number): void {
-    // Fetch sales made movie-wise in a quarter
-  }
-
-  getMovieOfTheMonth(month: Date): void {
-    // Fetch the movie of the month
-  }
-
-  getDisasterOfTheMonth(month: Date): void {
-    // Fetch the disaster of the month
   }
 }
