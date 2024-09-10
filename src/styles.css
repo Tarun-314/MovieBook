@@ -324,6 +324,7 @@ font-weight: 500;
 
 a{
 text-decoration: none !important;
+cursor: pointer !important;
 }
 
 .seat.occupied {
@@ -412,6 +413,7 @@ textarea {
   z-index: 1000; /* Ensure it appears above other content */
 }
 
+
 .loading-container2 {
   top: 0;
   left: 0;
@@ -426,5 +428,3 @@ textarea {
 button:disabled {
   cursor: not-allowed;
 }
-
-
