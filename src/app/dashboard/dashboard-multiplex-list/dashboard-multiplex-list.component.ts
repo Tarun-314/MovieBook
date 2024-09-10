@@ -25,6 +25,7 @@ export class DashboardMultiplexListComponent implements AfterViewChecked, OnInit
   Mlinkedmovie:TheatreMovieWithName=new TheatreMovieWithName();
   isLinkedMoveEmpty: boolean = true;
   multiplexes:UTheatre[]=[];
+  selectedMultiplexes:UTheatre[]=[];
   movies:UMovie[]=[];
   linkedMovies:TheatreMovieWithName[]=[];
   users:UserWithBookingCount[]=[];
@@ -62,6 +63,7 @@ export class DashboardMultiplexListComponent implements AfterViewChecked, OnInit
 
     this.dataService.selectedCity$.subscribe(city =>{
       this.selectedCity=city;
+      this.selectedMultiplexes = this.multiplexes.filter(mul => mul.area == this.selectedCity);
     });
   }
 
@@ -102,6 +104,7 @@ export class DashboardMultiplexListComponent implements AfterViewChecked, OnInit
           table.clear().destroy();
       }
         this.multiplexes = data;
+        this.selectedMultiplexes = this.multiplexes.filter(mul => mul.area == this.selectedCity);
         this.multiplexesLoaded=true;
         this.isLoading=false;
       },
