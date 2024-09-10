@@ -125,7 +125,10 @@
               <option *ngFor="let theatre of selectedMultiplexes" [value]="theatre.theatreId">{{ theatre.name }}</option>
             </select>
           </div>
-          <ng-container *ngIf="barChartData && barChartData.datasets[0].data.length">
+          <div>
+            <p *ngIf="noDataFound" class="small text-danger text-center"><i class="fa fa-times-circle"></i> No data found</p>
+          </div>
+          <ng-container *ngIf="!noDataFound && barChartData && barChartData.datasets[0].data.length">
             <div class="chart-container">
               <canvas baseChart
                       [data]="barChartData"
@@ -146,7 +149,10 @@
               <option *ngFor="let movie of movies" [value]="movie.movieId">{{ movie.title }}</option>
             </select>
           </div>
-          <ng-container *ngIf="pieChartData && pieChartData.datasets[0].data.length">
+          <div>
+            <p *ngIf="noDataFound2" class="small text-danger text-center"><i class="fa fa-times-circle"></i> No data found</p>
+          </div>
+          <ng-container *ngIf="!noDataFound2 && pieChartData && pieChartData.datasets[0].data.length">
             <div class="chart-container">
               <canvas baseChart
                       [data]="pieChartData"
