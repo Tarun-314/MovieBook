@@ -54,7 +54,7 @@
                 <div class="d-flex align-items-center">
                   <i class="fa fa-star text-warning "></i>
                   <p class="text-muted text-capitalize mb-0">
-                    <strong class="ml-2">Ratings:</strong> {{movie.rating}}
+                    <strong class="ml-2">Ratings:</strong> {{movie.rating | number:'1.0-1'}}
                   </p>
                   <ng-container *ngFor="let star of getStar(movie.rating)">
                     <i class="fa" [ngClass]="star + ' text-warning mx-1'"></i>
@@ -100,7 +100,7 @@
                 <div class="d-flex align-items-center">
                   <i class="fa fa-star text-warning "></i>
                   <p class="text-muted text-capitalize mb-0">
-                    <strong class="ml-2">Ratings:</strong> {{disasterMovie.rating}}
+                    <strong class="ml-2">Ratings:</strong> {{disasterMovie.rating | number:'1.0-1'}}
                   </p>
                   <ng-container *ngFor="let star of getStar(disasterMovie.rating)">
                     <i class="fa" [ngClass]="star + ' text-warning mx-1'"></i>
