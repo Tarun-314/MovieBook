@@ -129,6 +129,7 @@
                 <th>Movie</th>
                 <th>Multiplex</th>
                 <th>Booking Date</th>
+                <th>Show Date</th>
                 <th>Show Time</th>
                 <th>Seat(s)</th>
                 <th>Amount</th>
@@ -142,6 +143,7 @@
                 <td>{{p.movieName}}</td>
                 <td>{{p.theatreName}}</td>
                 <td>{{p.bookingDate | date: "dd MMM yyyy"}}</td>
+                <td>{{p.showDate | date: "dd MMM yyyy"}}</td>
                 <td>{{p.showTime}}</td>
                 <td title="{{p.seats}}">{{p.seats | truncate}}</td>
                 <td>{{p.totalPrice}}</td>
