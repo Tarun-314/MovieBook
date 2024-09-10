@@ -17,7 +17,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   discountedAmount: number = 0;
   upiUrl = 'upi://pay?pa=7093794029@ybl&pn=Vamsi&cu=INR&am=0';
   cannotApply:boolean = false;
-  routerSubscription: Subscription;
+  routerSubscription:Subscription;
 
   constructor(private renderer: Renderer2, private router: Router, private dataService: DataService) {}
 
@@ -27,6 +27,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.retrieveStateData();
     this.setupEventListeners();
     this.generateQRCode();
+
     this.routerSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         if (event.navigationTrigger === 'popstate') {
@@ -46,7 +47,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.dataService.getCoupon(couponForm.value.code.toUpperCase()).subscribe({
       next:(amt:number)=>{
         this.couponDiscount=amt;
-        if(this.bookingData.amount-amt < 0)
+        if(this.bookingData.amount-amt <= 0)
             this.cannotApply=true;
         else if (this.couponDiscount > 0) {
           this.couponApplied = true;
