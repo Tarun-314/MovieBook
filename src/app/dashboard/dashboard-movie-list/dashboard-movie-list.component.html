@@ -92,9 +92,9 @@
               <div class="form-group px-sm-4 my-1 col-md-6">
                 <label for="trailer" class="font-weight-bold text-secondary">Trailer <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm" id="trailer" name="trailer" [(ngModel)]="Mmovie.trailer"
-                       placeholder="Enter trailer URL">
+                      required placeholder="Enter trailer URL">
                 <div *ngIf="movieForm.controls.trailer?.touched || movieForm.controls.trailer?.dirty" class="text-danger mt-2">
-                  <!-- Link to added -->
+                  <div *ngIf="movieForm.controls.trailer.errors?.required" class="small">Trailer link is required.</div>
                 </div>
               </div>
               <div class="form-group px-sm-4 my-1 col-md-6">
