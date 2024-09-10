@@ -35,7 +35,7 @@
                   <div *ngIf="name.dirty && name.invalid && name.touched" class="invalid-feedback">
                     <div *ngIf="name.errors?.required">Name is required</div>
                     <div *ngIf="name.errors?.minlength">Name must be at least 3 characters</div>
-                    <div *ngIf="name.errors?.pattern">Name should only contain alphabets and spaces</div>
+                    <div *ngIf="name.errors?.pattern">Name should only contain alphabets, spaces, and max. 15 chars.</div>
                   </div>
                   
                   <!-- Email -->
