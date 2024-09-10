@@ -31,6 +31,8 @@ export class StatisticsComponent implements OnInit{
   monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
   ];
+  noDataFound:boolean;
+  noDataFound2:boolean;
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective<'bar'> | undefined;
 
@@ -174,6 +176,7 @@ barChartOptions: ChartConfiguration<'bar'>['options'] = {
     const theatreid = selectElement.value;
     this.service.getTheatreStats(theatreid).subscribe({
       next:(data:TheatreSales[])=>{
+        this.noDataFound=false;
         this.theatreSales=data;
         this.barChartData.labels=this.theatreSales.map(sale => this.monthNames[sale.month - 1]);
         this.barChartData.datasets[0].data=this.theatreSales.map(sale => sale.totalAmount);
@@ -182,7 +185,7 @@ barChartOptions: ChartConfiguration<'bar'>['options'] = {
         }
       },
       error:(err)=>{
-       
+        this.noDataFound=true;
       }
     })
 
@@ -193,6 +196,7 @@ barChartOptions: ChartConfiguration<'bar'>['options'] = {
       this.service.getMovieCollections(movieid).subscribe({
         next:(data:MovieCollection[])=>{
           console.log(data)
+          this.noDataFound2=false;
           this.movieCollections=data;
           const newLabels = this.movieCollections.map(collection => collection.theatreName);
           const newData = this.movieCollections.map(collection => collection.totalAmount);
@@ -218,7 +222,7 @@ barChartOptions: ChartConfiguration<'bar'>['options'] = {
           }
         },
         error:(err)=>{
-         
+          this.noDataFound2=true;
         }
       })
       }
