@@ -41,11 +41,11 @@
               </div>
               <div class="form-group px-sm-4 my-1 col-md-6">
                 <label for="ratings" class="font-weight-bold text-secondary">Ratings <span class="text-danger">*</span></label>
-                <input type="number" step="0.1" min="0" max="5" class="form-control form-control-sm" id="ratings" name="ratings" [(ngModel)]="Mmultiplex.ratings"
+                <input type="number" step="0.1" min="1" max="5" class="form-control form-control-sm" id="ratings" name="ratings" [(ngModel)]="Mmultiplex.ratings"
                        required placeholder="Enter ratings">
                 <div *ngIf="multiplexForm.controls.ratings?.touched || multiplexForm.controls.ratings?.dirty" class="text-danger mt-2">
                   <div *ngIf="multiplexForm.controls.ratings?.errors?.required" class="small">Ratings are required.</div>
-                  <div *ngIf="multiplexForm.controls.ratings?.errors?.min" class="small">Ratings must be at least 0.</div>
+                  <div *ngIf="multiplexForm.controls.ratings?.errors?.min" class="small">Ratings must be at least 1.</div>
                   <div *ngIf="multiplexForm.controls.ratings?.errors?.max" class="small">Ratings cannot exceed 5.</div>
                 </div>
               </div>
@@ -53,18 +53,20 @@
             <div class="form-row">
               <div class="form-group px-sm-4 my-1 col-md-6">
                 <label for="screens" class="font-weight-bold text-secondary">Screens <span class="text-danger">*</span></label>
-                <input type="number" class="form-control form-control-sm" id="screens" name="screens" [(ngModel)]="Mmultiplex.screens"
+                <input type="number" min=1 max=5 class="form-control form-control-sm" id="screens" name="screens" [(ngModel)]="Mmultiplex.screens"
                        required placeholder="Enter number of screens">
                 <div *ngIf="multiplexForm.controls.screens?.touched || multiplexForm.controls.screens?.dirty" class="text-danger mt-2">
                   <div *ngIf="multiplexForm.controls.screens?.errors?.required" class="small">Number of screens is required.</div>
+                  <div *ngIf="multiplexForm.controls.screens.errors?.min" class="small">Minimum 1 screen is required</div>
+                  <div *ngIf="multiplexForm.controls.screens.errors?.max" class="small">Maximum 5 screens are allowed</div>
                 </div>
               </div>
               <div class="form-group px-sm-4 my-1 col-md-6">
                 <label for="image" class="font-weight-bold text-secondary">Image <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm" id="image" name="image" [(ngModel)]="Mmultiplex.image"
-                       placeholder="Enter Image CDN">
+                       placeholder="Enter Image CDN" required>
                 <div *ngIf="multiplexForm.controls.image?.touched || multiplexForm.controls.image?.dirty" class="text-danger mt-2">
-                  <!-- Optionally add validation for image if needed -->
+                  <div *ngIf="multiplexForm.controls.image?.errors?.required" class="small">Image CDN is required</div>
                 </div>
               </div>
             </div>
