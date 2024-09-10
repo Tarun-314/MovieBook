@@ -76,7 +76,7 @@
                       <p class="small my-1 card-text text-dark"><i class="fa fa-language"></i> Language: <span class="text-muted movieLang">{{lm.language}}</span></p>
                       <p class="small my-1 card-text text-info"><i class="fa fa-calendar"></i> Release Date: <span class="text-muted">{{lm.releaseDate | date: "dd MMM yyyy"}}</span></p>
                       <p class="small my-1 card-text text-danger"><i class="fa fa-heart text-danger"></i> Likes: <span class="text-muted">{{lm.likes | likes}}</span></p>
-                      <p class="small my-1 card-text text-warning"><i class="fa fa-star"></i> Rating: <span class="text-muted">{{lm.rating}}</span></p>
+                      <p class="small my-1 card-text text-warning"><i class="fa fa-star"></i> Ratings: <span class="text-muted">{{lm.rating}}</span></p>
                       
                       <div class="d-flex flex-wrap my-1 mt-2 align-items-center justify-content-between">
                         <button *ngFor="let st of getShowTimes(lm.showTimes)" 
