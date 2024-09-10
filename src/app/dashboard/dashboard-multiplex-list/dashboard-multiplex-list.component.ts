@@ -4,6 +4,7 @@ import { DashboardService } from '../../services/dashboard-services';
 import { finalize } from 'rxjs';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { Bookings, DataTransferObject, LinkedMovies, Movie, Multiplex, User } from '../../models/data-model';
+import { DataService } from '../../services/data-services';
 
 declare var $: any;
 
@@ -15,7 +16,7 @@ declare var $: any;
 export class DashboardMultiplexListComponent implements AfterViewChecked, OnInit, OnDestroy{
   crudMessage: string = '';
   isLoading:boolean = true;
-  constructor(private service:DashboardService){}
+  constructor(private service:DashboardService, private dataService:DataService){}
   
   Mmultiplex:UTheatre=new UTheatre();
   isMultiplexEmpty: boolean = true;
@@ -35,6 +36,7 @@ export class DashboardMultiplexListComponent implements AfterViewChecked, OnInit
   usersLoaded: boolean = false;
   bookingLoaded:boolean=false;
   tableName:string='';
+  selectedCity:string='';
 
   private showCrudModal(message: string,name: string): void {
     this.crudMessage = message;
@@ -57,6 +59,10 @@ export class DashboardMultiplexListComponent implements AfterViewChecked, OnInit
 
   ngOnInit(): void { 
     this.GetTheatres();
+
+    this.dataService.selectedCity$.subscribe(city =>{
+      this.selectedCity=city;
+    });
   }
 
   ngAfterViewChecked(): void {
@@ -85,6 +91,7 @@ export class DashboardMultiplexListComponent implements AfterViewChecked, OnInit
   UnLinkMmultiplex(){
     this.Mmultiplex=new UTheatre();
     this.isMultiplexEmpty=true;
+    this.Mmultiplex.area=this.selectedCity;
   }
 
   GetTheatres(){
