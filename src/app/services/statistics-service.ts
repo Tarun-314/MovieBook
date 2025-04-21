@@ -15,7 +15,7 @@ export class MovieStatisticsService {
     constructor(private http: HttpClient, private dataService: DataService) { 
       this.token = this.dataService.getUserDetails().token;
     }
-    private apiUrl = 'https://localhost:7263/Statistics';
+    private apiUrl = 'https://apimovie.bsite.net/Statistics';
     
     private getHeaders(): HttpHeaders {
         return new HttpHeaders({

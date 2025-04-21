@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({providedIn:'root'})
 export class DataService
 {
-    private baseUrl="https://localhost:7263"; 
+    private baseUrl="https://apimovie.bsite.net"; 
     private getHeaders(): HttpHeaders {
         return new HttpHeaders({
           'Authorization': `Bearer ${this.user.token}`,

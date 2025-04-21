@@ -23,7 +23,7 @@ export class AuthService {
   signup(fullName: string, passwordHash: string, email: string, phoneNumber: string, securityQuestion: string, securityAnswer: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://localhost:7263/Register',
+        'https://apimovie.bsite.net/Register',
         { 
           "userId":"string",
           "fullName":fullName,
@@ -44,7 +44,7 @@ export class AuthService {
   login(useremail: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://localhost:7263/login',
+        'https://apimovie.bsite.net/login',
         { useremail, password, token: 'string', sercurityQuestion: 'string' }
       ).pipe(
         catchError(this.errorHandler),
@@ -57,7 +57,7 @@ export class AuthService {
   forgot(useremail: string, security_question: string, security_answer: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://localhost:7263/forgotpassword',
+        'https://apimovie.bsite.net/forgotpassword',
         {
           "useremail": useremail,
           "password": security_answer,

@@ -12,7 +12,7 @@ export class DashboardService{
       this.token = this.dataService.getUserDetails().token;
     }
    
-    private baseUrl = 'https://localhost:7263/Admin';
+    private baseUrl = 'https://apimovie.bsite.net/Admin';
     
     private getHeaders(): HttpHeaders {
         return new HttpHeaders({
@@ -20,6 +20,13 @@ export class DashboardService{
           'Content-Type': 'application/json'
         });
       }
+
+    // Function to update show dates
+    public UpdateShowDates(): Observable<DataTransferObject> {
+      return this.http.get<DataTransferObject>(`${this.baseUrl}/UpdateShowDates`, {
+        headers: this.getHeaders()
+      });
+    }
 
     // Function to get all theaters
     public getAllTheaters(): Observable<UTheatre[]> {
