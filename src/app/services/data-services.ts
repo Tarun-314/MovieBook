@@ -266,6 +266,12 @@ export class DataService
         });
     }
     
+     // Function to update show dates
+        public UpdateShowDates(): Observable<DataTransferObject> {
+          return this.http.patch<DataTransferObject>(`${this.baseUrl}/Admin/UpdateShowDates`,{}, {
+            headers: this.getHeaders()
+          });
+        }
     // getLinkedMovies():LinkedMovies[]
     // {
     //     return this.linkedMovies;

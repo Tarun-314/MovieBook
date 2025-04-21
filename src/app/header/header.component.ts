@@ -1,9 +1,11 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { DataService } from '../services/data-services';
-import { Movie, LoggedInUser } from '../models/data-model';
+import { Movie, LoggedInUser, DataTransferObject } from '../models/data-model';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth-services';
+
+declare var $: any;
 
 @Component({
   selector: 'app-header',
@@ -13,13 +15,20 @@ import { AuthService } from '../services/auth-services';
 export class HeaderComponent implements OnInit, OnDestroy {
   Cities: string[] = [];
   selectedCity: string = '';
-
+  crudMessage: string = '';
   user:LoggedInUser;
   citySubscription: Subscription;
   searchedMovies: Movie[] = [];
   searchMovie: string = '';
   isDropdownOpen: boolean = false;
   noMoviesFound: boolean = false;
+  
+
+  private showCrudModal(message: string): void {
+    this.crudMessage = message;
+    ($('#statusModal') as any).modal('show');
+   
+  }
 
   constructor(private dataService: DataService, private router: Router, private authService:AuthService) {
     this.Cities = dataService.getCities();
@@ -101,7 +110,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.router.navigate(['/home']);
     }
   }
-
+  UpdateShows() {
+    this.dataService.UpdateShowDates().subscribe({
+            next:(response:DataTransferObject)=>{
+              this.showCrudModal(response.message);
+            },
+          error:(msg)=>{
+            this.showCrudModal(msg);
+            
+          }
+        })
+    }
   ngOnDestroy(): void {
     this.mySub.unsubscribe();
   }

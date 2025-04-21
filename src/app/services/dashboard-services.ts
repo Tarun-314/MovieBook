@@ -21,12 +21,7 @@ export class DashboardService{
         });
       }
 
-    // Function to update show dates
-    public UpdateShowDates(): Observable<DataTransferObject> {
-      return this.http.get<DataTransferObject>(`${this.baseUrl}/UpdateShowDates`, {
-        headers: this.getHeaders()
-      });
-    }
+   
 
     // Function to get all theaters
     public getAllTheaters(): Observable<UTheatre[]> {
