@@ -5,6 +5,7 @@ import { DataService } from '../services/data-services';
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
+  standalone: false,
   styleUrl: './movies.component.css'
 })
 export class MoviesComponent {

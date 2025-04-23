@@ -11,6 +11,7 @@ declare var $: any;
 @Component({
   selector: 'app-mov-details',
   templateUrl: './mov-details.component.html',
+  standalone: false,
   styleUrls: ['./mov-details.component.css']
 })
 export class MovDetailsComponent implements OnInit, AfterViewInit, OnDestroy {

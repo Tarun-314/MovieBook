@@ -9,6 +9,7 @@ import { throwError } from 'rxjs';
 @Component({
   selector: 'app-confirm-booking',
   templateUrl: './confirm-booking.component.html',
+  standalone: false,
   styleUrls: ['./confirm-booking.component.css']
 })
 export class ConfirmBookingComponent implements OnInit, OnDestroy {

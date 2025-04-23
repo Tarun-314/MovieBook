@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth-services';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
+  standalone: false,
   styleUrl: './footer.component.css'
 })
 export class FooterComponent implements OnInit, OnDestroy{

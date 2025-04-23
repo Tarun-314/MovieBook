@@ -10,6 +10,7 @@ import { MovieCollection, TheatreSales } from '../models/service-model';
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
+  standalone: false,
   styleUrl: './statistics.component.css'
 })
 export class StatisticsComponent implements OnInit{

@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
+  standalone: false,
   styleUrl: './forgot-password.component.css'
 })
 export class ForgotPasswordComponent {

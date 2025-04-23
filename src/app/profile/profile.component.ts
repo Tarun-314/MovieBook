@@ -8,6 +8,7 @@ declare var $: any;
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
+  standalone: false,
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit{

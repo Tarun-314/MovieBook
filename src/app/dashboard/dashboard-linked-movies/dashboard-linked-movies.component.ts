@@ -11,6 +11,7 @@ declare var $: any;
 @Component({
   selector: 'app-dashboard-linked-movies',
   templateUrl: './dashboard-linked-movies.component.html',
+  standalone: false,
   styleUrl: './dashboard-linked-movies.component.css'
 })
 export class DashboardLinkedMoviesComponent implements AfterViewChecked, OnInit, OnDestroy{

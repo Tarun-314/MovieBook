@@ -10,6 +10,7 @@ declare var $: any;
 @Component({
   selector: 'app-dashboard-user-bookings',
   templateUrl: './dashboard-user-bookings.component.html',
+  standalone: false,
   styleUrl: './dashboard-user-bookings.component.css'
 })
 export class DashboardUserBookingsComponent implements AfterViewChecked, OnInit, OnDestroy{

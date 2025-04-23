@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-multiplex',
   templateUrl: './multiplex.component.html',
+  standalone: false,
   styleUrl: './multiplex.component.css'
 })
 export class MultiplexComponent implements OnInit, OnDestroy{

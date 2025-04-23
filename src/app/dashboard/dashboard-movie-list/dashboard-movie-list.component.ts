@@ -10,6 +10,7 @@ declare var $: any;
 @Component({
   selector: 'app-dashboard-movie-list',
   templateUrl: './dashboard-movie-list.component.html',
+  standalone: false,
   styleUrl: './dashboard-movie-list.component.css'
 })
 export class DashboardMovieListComponent implements AfterViewChecked, OnInit, OnDestroy{

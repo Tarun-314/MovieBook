@@ -10,6 +10,7 @@ declare var $: any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
+  standalone: false,
   styleUrls: ['./dashboard.component.css']
 })
 

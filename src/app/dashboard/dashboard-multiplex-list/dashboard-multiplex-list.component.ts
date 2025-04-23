@@ -11,6 +11,7 @@ declare var $: any;
 @Component({
   selector: 'app-dashboard-multiplex-list',
   templateUrl: './dashboard-multiplex-list.component.html',
+  standalone: false,
   styleUrl: './dashboard-multiplex-list.component.css'
 })
 export class DashboardMultiplexListComponent implements AfterViewChecked, OnInit, OnDestroy{

@@ -8,6 +8,7 @@ declare var $: any;
 @Component({
   selector: 'app-ticket-booking',
   templateUrl: './ticket-booking.component.html',
+  standalone: false,
   styleUrls: ['./ticket-booking.component.css']
 })
 export class TicketBookingComponent implements OnInit, AfterViewInit, OnDestroy {

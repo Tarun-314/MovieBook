@@ -9,6 +9,7 @@ declare var $: any;
 @Component({
   selector: 'app-mul-details',
   templateUrl: './mul-details.component.html',
+  standalone: false,
   styleUrls: ['./mul-details.component.css']
 })
 export class MulDetailsComponent implements OnInit, AfterViewInit, OnDestroy {

@@ -10,6 +10,7 @@ declare var $: any;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
+  standalone: false,
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
